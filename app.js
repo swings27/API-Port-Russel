@@ -7,8 +7,10 @@ const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+
+const mongodb = require('.db/mongo');
 
 const app = express();
 
@@ -41,6 +43,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // Utilisation des middlewares
+app.use(cors({
+    exposedHeaders: ['Authorization'],
+    origin: '*'
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
