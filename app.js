@@ -10,6 +10,8 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+const mongodb = require('.db/mongo');
+
 const app = express();
 
 // Configuration de Swagger avec swagger-jsdoc
@@ -41,6 +43,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // Utilisation des middlewares
+app.use(cors({
+    exposedHeaders: ['Authorization'],
+    origin: '*'
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
