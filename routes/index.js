@@ -6,10 +6,12 @@ const catwaysRouter = require('../routes/catways');
 const reservationsRouter = require('../routes/reservations');
 
 /** 
-* @openapi
-* /:
+* @swagger
+* /index:
 *   get:
-*     description: Page d'accueil
+*     summary: Page d'accueil
+*      tags:
+*       - Index
 */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'API Port Russel' });

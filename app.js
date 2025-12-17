@@ -4,42 +4,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-
 const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerSpec = require("./swagger");
+
 
 const indexRouter = require('./routes/index');
 const mongodb = require('./db/mongo');
 
 const app = express();
-
-// Configuration de Swagger avec swagger-jsdoc
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0', // Utilisation d'OpenAPI 3.0
-    info: {
-      title: 'API Port Russel', // Titre de l'API
-      version: '1.0.0', // Version de l'API
-      description: 'Ceci est une API REST simple documentée avec Swagger et Express',
-    },
-    servers: [
-      {
-        url: 'http://localhost:8000', // URL de l'API
-      },
-    ],
-  },
-  apis: ['./routes/*.js'], // Répertoire où Swagger va chercher les fichiers contenant des commentaires
-};
-
-// Générer la documentation Swagger
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
-
-// Utiliser Swagger UI pour afficher la documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 // Utilisation des middlewares
 app.use(cors({
@@ -51,6 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Utiliser Swagger UI pour afficher la documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/', indexRouter);
@@ -72,7 +46,8 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(8000, () => {
-  console.log("Listening on port 8000")
+  console.log("Listening on port 8000");
+  console.log("Swagger available on http://localhost:8000/api-docs");
 });
 
 module.exports = app;
