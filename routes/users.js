@@ -15,12 +15,12 @@ router.get('/:id', service.getUserById);
 /**
  * @swagger
  * /users:
- *   put:
+ *   post:
  *     summary: Crée un nouvel utilisateur
  *     tags:
  *       - Users
  */
-router.put('/new', service.createUser);
+router.post('/new', service.createUser);
 
 /**
  * @swagger

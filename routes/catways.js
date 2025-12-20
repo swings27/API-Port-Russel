@@ -11,17 +11,17 @@ const service = require('../services/catways');
  *     tags:
  *       - Catways
  */
-router.get('/:id', service.getById);
+router.get('/:number', service.getByNumber);
 
 /**
  * @swagger
  * /catways:
- *   put:
+ *   post:
  *     summary: Crée un nouveau catway
  *     tags:
  *       - Catways
  */
-router.put('/', service.createCatway);
+router.post('/', service.createCatway);
 
 /**
  * @swagger
@@ -31,7 +31,7 @@ router.put('/', service.createCatway);
  *     tags:
  *       - Catways
  */
-router.patch('/:id', service.updateCatway);
+router.patch('/:number', service.updateCatway);
 
 /**
  * @swagger
@@ -41,6 +41,6 @@ router.patch('/:id', service.updateCatway);
  *     tags:
  *       - Catways
  */
-router.delete('/:id', service.deleteCatway);
+router.delete('/:number', service.deleteCatway);
 
 module.exports = router;
