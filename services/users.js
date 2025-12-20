@@ -1,5 +1,7 @@
 //Importation du modèle de donéees
 const User = require('../models/users');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 //Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res, next) => {
