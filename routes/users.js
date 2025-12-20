@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const service = require('../services/users');
+const private = require('../middlewares/private');
 
 /**
  * @swagger
@@ -11,7 +12,7 @@ const service = require('../services/users');
  *      tags:
  *          - Users
  */
-router.get('/', service.getAllUsers);
+router.get('/', private.checkJWT, service.getAllUsers);
 
 /**
  * @swagger
@@ -21,7 +22,7 @@ router.get('/', service.getAllUsers);
  *     tags:
  *       - Users
  */
-router.get('/:email', service.getUser);
+router.get('/:email', private.checkJWT, service.getUser);
 
 /**
  * @swagger
@@ -41,7 +42,7 @@ router.post('/', service.createUser);
  *     tags:
  *       - Users
  */
-router.put('/:email', service.updateUser);
+router.put('/:email', private.checkJWT, service.updateUser);
 
 /**
  * @swagger
@@ -51,7 +52,7 @@ router.put('/:email', service.updateUser);
  *     tags:
  *       - Users
  */
-router.delete('/:id', service.deleteUser);
+router.delete('/:id', private.checkJWT, service.deleteUser);
 
 //Authentification
 
