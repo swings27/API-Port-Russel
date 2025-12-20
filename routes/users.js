@@ -15,7 +15,7 @@ router.get('/', service.getAllUsers);
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/{email}:
  *   get:
  *     summary: Récupère un utilisateur par son id
  *     tags:
@@ -35,8 +35,8 @@ router.post('/', service.createUser);
 
 /**
  * @swagger
- * /users/{id}:
- *   patch:
+ * /users/{email}:
+ *   put:
  *     summary: Modifier un utilisateur existant
  *     tags:
  *       - Users
@@ -52,5 +52,27 @@ router.put('/:email', service.updateUser);
  *       - Users
  */
 router.delete('/:id', service.deleteUser);
+
+//Authentification
+
+/**
+ * @swagger
+ * /login
+ *  post:
+ *      summary: Se connecter à son compte
+ *      tags:
+ *          - Users
+ */
+router.post('/login', service.authenticate);
+
+/**
+ * @swagger
+ * /logout
+ *  get:
+ *      summary: Se déconnecter de son compte
+ *      tags: 
+ *          - Users
+ */
+router.get('/logout');
 
 module.exports = router;
