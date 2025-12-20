@@ -3,29 +3,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * /catways/{id}/reservations:
- *   get:
- *     summary: Récupère toutes les réservations d’un catway
- *     tags:
- *       - Reservations
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: Identifiant du catway
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Liste des réservations du catway
- */
-router.get('/catways/:id/reservations', (req, res) => {
-    const id = req.params.id;
-    res.status(200).send('Voici les réservations pour le catway ' + id);
-});
-
-/**
- * @swagger
  * /catways/{id}/reservations/{idReservation}:
  *   get:
  *     summary: Récupère une réservation spécifique d’un catway
@@ -58,7 +35,7 @@ router.get('/catways/:id/reservations/:idReservation', (req, res) => {
 /**
  * @swagger
  * /catways/{id}/reservations:
- *   post:
+ *   put:
  *     summary: Crée une nouvelle réservation pour un catway
  *     tags:
  *       - Reservations
@@ -88,14 +65,14 @@ router.get('/catways/:id/reservations/:idReservation', (req, res) => {
  *       201:
  *         description: Réservation créée
  */
-router.post('/catways/:id/reservations/', (req, res) => {
+router.put('/catways/:id/reservations/', (req, res) => {
     res.status(201).send('Nouvelle réservation effectuée !');
 });
 
 /**
  * @swagger
  * /catways/{id}/reservations:
- *   put:
+ *   patch:
  *     summary: Modifie une réservation d’un catway
  *     tags:
  *       - Reservations
@@ -123,7 +100,7 @@ router.post('/catways/:id/reservations/', (req, res) => {
  *       200:
  *         description: Réservation modifiée
  */
-router.put('/catways/:id/reservations', (req, res) => {
+router.patch('/catways/:id/reservations', (req, res) => {
     res.status(200).send('Réservation modifiée');
 });
 

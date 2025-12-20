@@ -19,7 +19,7 @@ exports.getUserById = async (req, res, next) => {
 };
 
 //Ajouter un utilisateur
-exports.createUser = async (req, res, next) {
+exports.createUser = async (req, res, next) => {
     const { name, firstname, email, password } = req.body;
 
     //Vérification des champs

@@ -19,7 +19,7 @@ exports.getById = async (req, res, next) => {
 };
 
 //Ajouter un catway
-exports.createCatway = async (req, res, next) {
+exports.createCatway = async (req, res, next) => {
     const { number, type, state } = req.body;
 
     //Vérification des champs

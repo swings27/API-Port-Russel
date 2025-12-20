@@ -20,14 +20,12 @@ router.get('/:id', service.getUserById);
  *     tags:
  *       - Users
  */
-router.put('/', (req, res) => {
-    res.status(201).send('Nouvel utilisateur ajouté !');
-});
+router.put('/new', service.createUser);
 
 /**
  * @swagger
  * /users/{id}:
- *   put:
+ *   patch:
  *     summary: Modifier un utilisateur existant
  *     tags:
  *       - Users
