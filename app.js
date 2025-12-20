@@ -9,7 +9,7 @@ const swaggerSpec = require("./swagger");
 
 
 const indexRouter = require('./routes/index');
-const mongodb = require('./db/mongo');
+const connectDB = require('./db/mongo');
 
 const app = express();
 
@@ -45,9 +45,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8000, () => {
-  console.log("Listening on port 8000");
-  console.log("Swagger available on http://localhost:8000/api-docs");
-});
+connectDB().then(() => {
+  const Port = process.env.PORT || 3000;
+    
+  app.listen(Port , () => {
+      console.log("Listening on port " + Port);
+      console.log("Swagger available on http://localhost:8000/api-docs");
+      });
+  });
 
 module.exports = app;
