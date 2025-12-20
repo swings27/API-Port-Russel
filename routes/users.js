@@ -2,6 +2,17 @@ var express = require('express');
 var router = express.Router();
 
 const service = require('../services/users');
+
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *      summary: Récupére la liste de tous les utilisateurs
+ *      tags:
+ *          - Users
+ */
+router.get('/', service.getAllUsers);
+
 /**
  * @swagger
  * /users/{id}:
@@ -10,7 +21,7 @@ const service = require('../services/users');
  *     tags:
  *       - Users
  */
-router.get('/:id', service.getUserById);
+router.get('/:email', service.getUser);
 
 /**
  * @swagger
@@ -20,7 +31,7 @@ router.get('/:id', service.getUserById);
  *     tags:
  *       - Users
  */
-router.post('/new', service.createUser);
+router.post('/', service.createUser);
 
 /**
  * @swagger
@@ -30,7 +41,7 @@ router.post('/new', service.createUser);
  *     tags:
  *       - Users
  */
-router.patch('/:id', service.updateUser);
+router.put('/:email', service.updateUser);
 
 /**
  * @swagger

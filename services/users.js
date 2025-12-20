@@ -1,12 +1,27 @@
 //Importation du modèle de donéees
 const User = require('../models/users');
 
-//Récupérer un utilisateur
-exports.getUserById = async (req, res, next) => {
-    const id = req.params.id
+//Récupérer tous les utilisateurs
+exports.getAllUsers = async (req, res, next) => {
+    try {
+        let user = await User.find();
+
+        if (user) {
+            return res.status(200).json(user)
+        }
+        
+        return res.status(404).json('Listing introuvable');
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+//Récupérer un utilisateur spécifique
+exports.getUser = async (req, res, next) => {
+    const email = req.params.email
 
     try {
-        let user = await User.findById(id);
+        let user = await User.findOne({ email });
 
         if (user) {
             return res.status(200).json(user);
@@ -14,7 +29,7 @@ exports.getUserById = async (req, res, next) => {
 
         return res.status(404).json('Utilisateur non trouvé');
     } catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }
 };
 
@@ -38,13 +53,13 @@ exports.createUser = async (req, res, next) => {
         let user = await User.create(temp);
         return res.status(201).json(user);
     } catch (error) {
-        return res.status(501).json(error)
+        return res.status(500).json(error)
     }
 };
 
 //Modifier un utilisateur
 exports.updateUser = async (req, res, next) => {
-    const id = req.params.id;
+    const userEmail = req.params.email;
     const { name, firstname, email, password } = req.body;
 
       //Vérification des champs
@@ -60,7 +75,7 @@ exports.updateUser = async (req, res, next) => {
     };
 
     try {
-        let user = await User.findOne({_id : id});
+        let user = await User.findOne({ email : userEmail });
 
         if (user) {
             Object.keys(temp).forEach((key) => {
@@ -75,19 +90,19 @@ exports.updateUser = async (req, res, next) => {
 
         return res.status(404).json("Utilisateur non trouvé");
     } catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }
 };
 
 //Supprimer un utilisateur
 exports.deleteUser = async (req, res, next) => {
-    const id = req.params.id;
+    const email = req.params.email
 
     try {
-        await User.deleteOne({_id : id});
+        await User.deleteOne(email);
         return res.status(204).json('Utilisateur supprimé');
     } catch (error) {
-        return res.status(501).json(error)
+        return res.status(500).json(error)
     }
 };
 
