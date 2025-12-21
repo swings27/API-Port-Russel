@@ -74,6 +74,6 @@ router.post('/login', service.authenticate);
  *      tags: 
  *          - Users
  */
-router.get('/logout');
+router.get('/logout', service.logout);
 
 module.exports = router;

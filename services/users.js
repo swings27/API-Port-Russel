@@ -133,7 +133,7 @@ exports.authenticate = async (req, res, next) => {
         };
 
         const token = jwt.sign(payload, process.env.SECRET_KEY, {
-            expiresIn: '24h'
+            expiresIn: '15m'
         });
 
         return res.status(200).json({
@@ -144,5 +144,10 @@ exports.authenticate = async (req, res, next) => {
     } catch (error) {
         return res.status(500).json(error);
     }
+};
+
+// Se déconnecter
+exports.logout = async (req, res, next) => {
+    return res.status(200).json('Déconnexion réussie');
 };
 

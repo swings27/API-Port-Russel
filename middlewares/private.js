@@ -12,11 +12,7 @@ exports.checkJWT = async (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-
-        // On stocke les infos utiles pour les prochaines routes
-        req.user = decoded;
-
+        jwt.verify(token, process.env.SECRET_KEY);
         next();
     } catch (error) {
         return res.status(401).json('Token expiré ou invalide');
