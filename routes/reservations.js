@@ -11,7 +11,7 @@ const service = require('../services/reservations');
  *      tags:
  *          - Reservations
  */
-router.get('/:number/reservations', service.getAll);
+router.get('/:id/reservations', service.getAll);
 
 /**
  * @swagger
@@ -21,7 +21,7 @@ router.get('/:number/reservations', service.getAll);
  *     tags:
  *       - Reservations
  */
-router.get('/:number/reservations/:id', service.getById);
+router.get('/:id/reservations/:idReservation', service.getOne);
 
 /**
  * @swagger
@@ -31,17 +31,17 @@ router.get('/:number/reservations/:id', service.getById);
  *     tags:
  *       - Reservations
  */
-router.post('/:number/newbooking', service.createBooking);
+router.post('/:id/reservations', service.createBooking);
 
 /**
  * @swagger
  * /catways/{number}/reservations/{id}:
- *   patch:
+ *   put:
  *     summary: Modifie une réservation d’un catway
  *     tags:
  *       - Reservations
  */
-router.put('/:number/reservations/:id', service.updateBooking);
+router.put('/:id/reservations/:idReservation', service.updateBooking);
 
 /**
  * @swagger
@@ -51,6 +51,6 @@ router.put('/:number/reservations/:id', service.updateBooking);
  *     tags:
  *       - Reservations
  */
-router.delete('/:number/reservations/:id', service.deleteBooking);
+router.delete('/:id/reservations/:idReservation', service.deleteBooking);
 
 module.exports = router;

@@ -3,10 +3,8 @@ const Schema = mongoose.Schema;
 
 const ReservationSchema = new Schema({
     catwayNumber: {
-        type: Number,
-        unique: true,
-        required: true,
-        min: [1, 'Le numéro dit être supérieur à 0']
+        type : Number,
+        required : [true, 'Le numéro est requis'],
     },
     clientName: {
         type: String,
@@ -36,25 +34,6 @@ const ReservationSchema = new Schema({
             message: 'La date de fin doit être postérieure à la date de début'
         }
     }
-}, {
-    timestamps: true
-});
-
-ReservationSchema.pre('save', async function (next) {
-    const Reservation = mongoose.model('Reservation');
-
-    const overlap = await Reservation.findOne({
-        catwayNumber: this.catwayNumber,
-        startDate: { $lt: this.endDate },
-        endDate: { $gt: this.startDate }
-    });
-
-    if (overlap) {
-        return next(
-            new Error('Ce catway est déjà réservé sur cette période')
-        );
-    }
-    next();
 });
 
 module.exports = mongoose.model('Reservation', ReservationSchema);
