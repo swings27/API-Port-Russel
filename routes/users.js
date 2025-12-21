@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const service = require('../services/users');
+const private = require('../middlewares/private');
 
 /**
  * @swagger
@@ -11,17 +12,17 @@ const service = require('../services/users');
  *      tags:
  *          - Users
  */
-router.get('/', service.getAllUsers);
+router.get('/', private.checkJWT, service.getAllUsers);
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/{email}:
  *   get:
  *     summary: Récupère un utilisateur par son id
  *     tags:
  *       - Users
  */
-router.get('/:email', service.getUser);
+router.get('/:email', private.checkJWT, service.getUser);
 
 /**
  * @swagger
@@ -35,13 +36,13 @@ router.post('/', service.createUser);
 
 /**
  * @swagger
- * /users/{id}:
- *   patch:
+ * /users/{email}:
+ *   put:
  *     summary: Modifier un utilisateur existant
  *     tags:
  *       - Users
  */
-router.put('/:email', service.updateUser);
+router.put('/:email', private.checkJWT, service.updateUser);
 
 /**
  * @swagger
@@ -51,6 +52,26 @@ router.put('/:email', service.updateUser);
  *     tags:
  *       - Users
  */
-router.delete('/:id', service.deleteUser);
+router.delete('/:id', private.checkJWT, service.deleteUser);
+
+/**
+ * @swagger
+ * /login:
+ *    post:
+ *      summary: Se connecter à son compte
+ *      tags:
+ *          - Connexion
+ */
+router.post('/login', service.authenticate);
+
+/**
+ * @swagger
+ * /logout:
+ *    get:
+ *      summary: Se déconnecter de son compte
+ *      tags: 
+ *          - Connexion
+ */
+router.get('/logout', service.logout);
 
 module.exports = router;

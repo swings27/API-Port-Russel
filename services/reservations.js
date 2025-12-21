@@ -1,26 +1,9 @@
 //Importation du modèle de donéees
 const Booking = require('../models/reservations');
 
-//Récupérer une réservation spécifique
-exports.getById = async (req, res, next) => {
-    const id = req.params.id;
-
-    try {
-        let booking = await Booking.findById(id);
-
-        if (booking) {
-            return res.status(200).json(booking);
-        }
-
-        return res.status(404).json('Réservation non trouvée');
-    } catch (error) {
-        return res.status(501).json(error);
-    }
-};
-
 //Récupérer toutes les réservations d'un catway spécifique
 exports.getAll = async (req, res, next) => {
-    const catwayNumber = req.params.number;
+    const catwayNumber = parseInt(req.params.id);
 
     try {
         let booking = await Booking.findOne({ catwayNumber });
@@ -29,48 +12,93 @@ exports.getAll = async (req, res, next) => {
             return res.status(200).json(booking);
         }
 
-        return res.status(404).json('Listing introuvable');
+        return res.status(404).json('Pas de réservation en cours');
     } catch (error) {
-        return res.status(501).json(error);
-    }
-}
-
-//Ajouter une réservation
-exports.createBooking = async (req, res, next) => {
-    const { catwayNumber, clientName, boatName, startDate, endDate } = req.body;
-
-    //Vérification des champs
-    if (!catwayNumber || !clientName || !boatName || !startDate || !endDate) {
-        return res.status(400).json('Tous les champs sont obligatoires')
-    }
-
-    const temp = {
-        catwayNumber,
-        clientName: clientName.trim(),
-        boatName: boatName.trim(),
-        startDate,
-        endDate
-    };
-
-    try {
-        let booking = await Booking.create(temp);
-        return res.status(201).json(booking);
-    } catch (error) {
-        return res.status(501).json(error)
+        return res.status(500).json(error);
     }
 };
 
-//Modifier un catway
-exports.updateBooking = async (req, res, next) => {
-     const { catwayNumber, clientName, boatName, startDate, endDate } = req.body;
+//Récupérer une réservation spécifique
+exports.getOne = async (req, res, next) => {
+    const catwayNumber = parseInt(req.params.id);
+    const idReservation = req.params.idReservation;
+
+    try {
+        let booking = await Booking.findOne({
+            _id: idReservation,
+            catwayNumber
+        });
+
+        if (booking) {
+            return res.status(200).json(booking);
+        }
+
+        return res.status(404).json('Réservation non trouvée');
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+//Ajouter une réservation
+exports.createBooking = async (req, res, next) => {
+    const catwayNumber = parseInt(req.params.id);
+    const { clientName, boatName, startDate, endDate } = req.body;
 
     //Vérification des champs
-    if (!catwayNumber || !clientName || !boatName || !startDate || !endDate) {
+    if (!clientName || !boatName || !startDate || !endDate) {
         return res.status(400).json('Tous les champs sont obligatoires')
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    if (isNaN(start) || isNaN(end)) {
+        return res.status(400).json('Format de date invalide')
+    }
+
+    if (start >= end) {
+        return res.status(400).json('Dates invalides');
     }
 
     const temp = {
         catwayNumber,
+        clientName: clientName.trim(),
+        boatName: boatName.trim(),
+        startDate: start,
+        endDate: end
+    };
+
+    try {
+        const existingBooking = await Booking.findOne({
+            catwayNumber,
+            startDate: { $lt: end },
+            endDate: { $gt: start } 
+        });
+
+        if (existingBooking) {
+            return res.status(409).json('Une réservation est déjà en cours à cette période');
+        }
+
+        let booking = await Booking.create(temp);
+        return res.status(201).json(booking);
+
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+};
+
+//Modifier une réservation
+exports.updateBooking = async (req, res, next) => {
+    const catwayNumber = parseInt(req.params.id);
+    const idReservation = req.params.idReservation;
+     const { clientName, boatName, startDate, endDate } = req.body;
+
+    //Vérification des champs
+    if (!clientName || !boatName || !startDate || !endDate) {
+        return res.status(400).json('Tous les champs sont obligatoires')
+    }
+
+    const temp = {
         clientName: clientName.trim(),
         boatName: boatName.trim(),
         startDate,
@@ -78,7 +106,10 @@ exports.updateBooking = async (req, res, next) => {
     };
 
     try {
-        let booking = await Booking.findById({_id : id });
+        let booking = await Booking.findOne({
+            _id: idReservation, 
+            catwayNumber
+        });
 
         if (booking) {
             Object.keys(temp).forEach((key) => {
@@ -93,18 +124,22 @@ exports.updateBooking = async (req, res, next) => {
 
         return res.status(404).json("Réservation non trouvée");
     } catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }
 };
 
-//Supprimer un utilisateur
-exports.deleteBooking = async (req, res, next) => {
-    const id = req.params.id;
+//Supprimer une réservation
+exports.deleteBooking = async (req, res, next) => { 
+    const catwayNumber = parseInt(req.params.id)
+    const idReservation = req.params.idReservation;
 
     try {
-        await Booking.deleteOne({_id : id});
+        await Booking.findOneAndDelete({
+            _id: idReservation,
+            catwayNumber
+        });
         return res.status(204).json('Réservation supprimée');
     } catch (error) {
-        return res.status(501).json(error)
+        return res.status(500).json(error)
     }
 };

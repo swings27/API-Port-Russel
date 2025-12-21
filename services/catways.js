@@ -1,9 +1,23 @@
 //Importation du modèle de donéees
 const Catway = require('../models/catways');
 
-//Récupérer un catway
+// Récupérer tous les catways
+exports.getAllCatways = async (req, res, next) => {
+    try {
+        let catway = await Catway.find();
+
+        if (catway) {
+            return res.status(200).json(catway)
+        }
+        return res.status(404).json('Linsting introuvable')
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+//Récupérer un catway spécifique
 exports.getByNumber = async (req, res, next) => {
-    const catwayNumber = req.params.number;
+    const catwayNumber = parseInt(req.params.id);
 
     try {
         let catway = await Catway.findOne({ catwayNumber });
@@ -14,47 +28,50 @@ exports.getByNumber = async (req, res, next) => {
 
         return res.status(404).json('Catway non trouvé');
     } catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }
 };
 
 //Ajouter un catway
 exports.createCatway = async (req, res, next) => {
-    const { number, type, state } = req.body;
+    const { catwayNumber, catwayType, catwayState } = req.body;
 
     //Vérification des champs
-    if (!number || !type || !state) {
+    if (!catwayNumber || !catwayType || !catwayState) {
         return res.status(400).json('Tous les champs sont obligatoires')
     }
 
-    const temp = {
-        number,
-        type: type.lowerCase().trim(),
-        state: state.trim()
-    };
-
     try {
-        let catway = await Catway.create(temp);
+        const existingCatway = await Catway.findOne({ catwayNumber });
+        if (existingCatway) {
+            return res.status(409).json('Le catway numéro ' + catwayNumber +' est déjà utilisé');
+        }
+
+        let catway = await Catway.create({
+            catwayNumber,
+            catwayType,
+            catwayState
+        });
+
         return res.status(201).json(catway);
     } catch (error) {
-        return res.status(501).json(error)
+        return res.status(500).json(error)
     }
 };
 
 //Modifier un catway
 exports.updateCatway = async (req, res, next) => {
-    const catwayNumber = req.params.number;
-    const { number, type, state } = req.body;
+    const catwayNumber = parseInt(req.params.id);
+    const { catwayType, catwayState } = req.body;
 
       //Vérification des champs
-    if (!number || !type || !state) {
-        return res.status(400).json('Tous les champs sont obligatoires')
+    if (!catwayType && !catwayState) {
+        return res.status(400).json('Un champ est requis')
     }
 
     const temp = {
-        number,
-        type: type.lowerCase().trim(),
-        state: state.trim()
+        catwayType: catwayType.trim(),
+        catwayState: catwayState.trim()
     };
 
     try {
@@ -73,18 +90,18 @@ exports.updateCatway = async (req, res, next) => {
 
         return res.status(404).json("Catway non trouvé");
     } catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }
 };
 
 //Supprimer un catway
 exports.deleteCatway = async (req, res, next) => {
-    const catwayNumber = req.params.number;
+    const catwayNumber = parseInt(req.params.id);
 
     try {
         await Catway.deleteOne({ catwayNumber });
         return res.status(204).json('Catway supprimé');
     } catch (error) {
-        return res.status(501).json(error)
+        return res.status(500).json(error)
     }
 };

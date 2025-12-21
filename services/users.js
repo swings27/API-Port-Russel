@@ -1,5 +1,7 @@
 //Importation du modèle de donéees
 const User = require('../models/users');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 //Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res, next) => {
@@ -104,5 +106,48 @@ exports.deleteUser = async (req, res, next) => {
     } catch (error) {
         return res.status(500).json(error)
     }
+};
+
+//Authentification
+exports.authenticate = async (req, res, next) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json('Email et mot de passe obligatoires')
+    }
+
+    try {
+        const user = await User.findOne({ email }).select('-__v -createdAt -updatedAt');
+       if (!user) {
+            return res.status(404).json('Utilisateur non trouvé');
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json('Mot de passe invalide');
+        }
+
+        const payload = {
+            userId: user._id,
+            email: user.email
+        };
+
+        const token = jwt.sign(payload, process.env.SECRET_KEY, {
+            expiresIn: '15m'
+        });
+
+        return res.status(200).json({
+            message: 'Authentification réussie',
+            token
+        });
+        
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+// Se déconnecter
+exports.logout = async (req, res, next) => {
+    return res.status(200).json('Déconnexion réussie');
 };
 
