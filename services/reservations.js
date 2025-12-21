@@ -33,7 +33,7 @@ exports.getAll = async (req, res, next) => {
     } catch (error) {
         return res.status(501).json(error);
     }
-}
+};
 
 //Ajouter une réservation
 exports.createBooking = async (req, res, next) => {

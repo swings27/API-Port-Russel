@@ -54,25 +54,23 @@ router.put('/:email', private.checkJWT, service.updateUser);
  */
 router.delete('/:id', private.checkJWT, service.deleteUser);
 
-//Authentification
-
 /**
  * @swagger
- * /login
- *  post:
+ * /login:
+ *    post:
  *      summary: Se connecter à son compte
  *      tags:
- *          - Users
+ *          - Connexion
  */
 router.post('/login', service.authenticate);
 
 /**
  * @swagger
- * /logout
- *  get:
+ * /logout:
+ *    get:
  *      summary: Se déconnecter de son compte
  *      tags: 
- *          - Users
+ *          - Connexion
  */
 router.get('/logout', service.logout);
 
