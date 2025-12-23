@@ -1,6 +1,60 @@
 body {
+  text-align: center;
+  background-color: #d1f0ff;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1em "Neuton", Georgia, serif;
+}
+
+h1 {
+  color: rgb(5, 10, 89);
+  font-family: "Libre Bodoni", Georgia, serif;
+  font-size: 5em;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 45px auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.form-group {
+  width: auto;
+  padding: 20px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  font-weight: 700;
+  padding: 5px;
+  font-size: 1.2em;
+}
+
+input {
+  width: 100%;
+  padding: 15px 10px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(5, 10, 89);
+  color: white;
+  font-weight: 700;
+  width: auto;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  margin: 15px auto;
+}
+
+button:hover {
+  background-color: #d1f0ff;
+  color: rgb(5, 10, 89);
+  transition: 1s ease;
 }
 
 a {
