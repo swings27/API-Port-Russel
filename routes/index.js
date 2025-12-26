@@ -8,8 +8,7 @@ const reservationsRouter = require('../routes/reservations');
 router.get('/', function(req, res, next) {
   res.render('pages/home', { 
     title: 'API Port Russel',
-    message: 'Capitainerie du Port Russel',
-    infos: "Veuillez vous connecter pour accéder à nos services." 
+    message: 'Capitainerie du Port Russel' 
   });
 });
 

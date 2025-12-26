@@ -1,29 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  box-sizing: border-box;
+  margin: 0;
+  min-height: 100%;
   text-align: center;
   background-color: #d1f0ff;
-  padding: 50px;
   font: 1em "Neuton", Georgia, serif;
+}
+
+main {
+  padding: 20px 0;
 }
 
 h1 {
   color: rgb(5, 10, 89);
   font-family: "Libre Bodoni", Georgia, serif;
-  font-size: 5em;
+  font-size: 4em;
+}
+
+.container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  margin: 30px auto;
+}
+
+.welcome-box {
+  width: 30%;
+  padding: 0 20px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   width: 30%;
-  margin: 45px auto;
   background-color: white;
   border-radius: 10px;
-  padding: 40px;
+  padding: 35px;
 }
 
 .form-group {
   width: auto;
   padding: 20px;
+}
+
+.welcome-text {
+  padding-top: 20px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+section {
+  padding: 10px 0;
 }
 
 label {
@@ -59,4 +92,20 @@ button:hover {
 
 a {
   color: #00B7FF;
+}
+
+footer {
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  background-color: rgb(5, 10, 89);
+  color: white;
+}
+
+footer div {
+  padding: 10px 50px;
 }
