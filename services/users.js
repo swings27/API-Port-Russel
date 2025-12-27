@@ -109,8 +109,10 @@ exports.deleteUser = async (req, res, next) => {
 };
 
 //Authentification
-exports.authenticate = async (req, res, next) => {
+exports.login = async (req, res, next) => {
     const { email, password } = req.body;
+    console.log('POST /login appelé');
+    console.log(req.body);
 
     if (!email || !password) {
         return res.status(400).json('Email et mot de passe obligatoires')
@@ -119,12 +121,12 @@ exports.authenticate = async (req, res, next) => {
     try {
         const user = await User.findOne({ email }).select('-__v -createdAt -updatedAt');
        if (!user) {
-            return res.status(404).json('Utilisateur non trouvé');
+            return res.redirect('/');
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).json('Mot de passe invalide');
+            return res.redirect('/');
         }
 
         const payload = {
@@ -133,13 +135,16 @@ exports.authenticate = async (req, res, next) => {
         };
 
         const token = jwt.sign(payload, process.env.SECRET_KEY, {
-            expiresIn: '15m'
+            expiresIn: '1h'
         });
 
-        return res.status(200).json({
-            message: 'Authentification réussie',
-            token
+        res.cookie('token', token, {
+                httpOnly: true,
+                secure: false,
+                sameSite: 'lax'
         });
+
+        res.redirect('/dashboard');
         
     } catch (error) {
         return res.status(500).json(error);
@@ -148,6 +153,7 @@ exports.authenticate = async (req, res, next) => {
 
 // Se déconnecter
 exports.logout = async (req, res, next) => {
-    return res.status(200).json('Déconnexion réussie');
+    res.clearCookie('token');
+    res.redirect('/');
 };
 

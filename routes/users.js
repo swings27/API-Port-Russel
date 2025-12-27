@@ -62,7 +62,7 @@ router.delete('/:id', private.checkJWT, service.deleteUser);
  *      tags:
  *          - Connexion
  */
-router.post('/login', service.authenticate);
+router.post('/login', service.login);
 
 /**
  * @swagger

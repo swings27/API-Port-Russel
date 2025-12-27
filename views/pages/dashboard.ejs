@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html lang="fr">
+        <%- include('../partials/head') %>
+        <body>
+            <main class="dashboard">
+                <div class="navigation">
+                    <h2>Tableau de bord</h2>
+                    <img src="/images/quai.png" alt="logo de la Capitainerie du Port Russel">
+                    <nav>
+                        <ul>
+                           <li>Catways</li> 
+                           <li>Réservations</li>
+                           <li>Utilisateurs</li>
+                           <li>Documentation API</li>
+                        </ul>
+                    </nav>
+                    <button type="">Déconnexion</button>
+                </div>
+                <div class="overview">
+                    <div class="data">
+                        <p>Aujourd'hui, nous sommes le : <%= date %></p>
+                    </div>
+                    <div class="main-content">
+                        <div class="summary">
+                            <h4>Réservations en cours</h4>
+                        </div>
+                        <div class="profile">
+                            <h3>Bienvenue <%= user.firstname %> <%= user.name %></h3>
+                            <p>Adresse mail : <%= user.email %></p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../partials/footer') %>
+        </body>
+    </html>
