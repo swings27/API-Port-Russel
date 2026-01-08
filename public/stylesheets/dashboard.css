@@ -10,35 +10,49 @@
     border-radius: 0 25px 25px 0;
 }
 
-h2 {
+.dashboard-title {
     color: white;
+    text-transform: uppercase;
+    word-spacing: 5px;
     font-family: "Libre Bodoni", Georgia, serif;
     padding: 30px 5px;
 }
 
-img {
-    border-radius: 75px;
-    margin: 20px 0 100px 0;
-    padding: 10px;
-    background-color: white;
-    width: 80px;
-    height: 80px;
+.profile {
+    color: white;
+    margin: 20px auto 100px;
+    border: 5px solid white;
+    border-radius: 60px;
+    padding: 20px 10px;
+    width: 80%;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
 }
 
 nav ul li {
     border-top: 1px solid white;
-    padding: 5px 0 7px 0;
+    padding: 10px 0;
     color: white;
+    font-size: 1.3em;
 }
 
 nav ul li:hover {
-    text-transform: uppercase;
     font-weight: bold;
+    background-color: #d1f0ff;
+    color: rgb(5, 10, 89);
     cursor: pointer;
 }
 
 .navigation button {
     margin-top: 100px;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
 }
 
 .overview {
@@ -61,11 +75,6 @@ nav ul li:hover {
 
 .summary {
     flex: 4;
-}
-
-.profile {
-    flex: 1;
-    background-color: rgba(0, 0, 0, 0.322);
 }
 
 h3 {

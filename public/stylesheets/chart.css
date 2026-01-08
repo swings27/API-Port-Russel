@@ -1,0 +1,36 @@
+#chart-title {
+    background-color: rgb(5, 10, 89);
+    text-transform: uppercase;
+    width: 40%;
+    margin: 50px auto;
+    padding: 15px 0;
+    border-radius: 50px;
+}
+
+table {
+  width: 80%;
+  margin: 30px auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 12px 15px;
+}
+
+th {
+  background-color: rgb(5, 10, 89);
+  color: #fff;
+  text-transform: uppercase;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #d1f0ff;
+}

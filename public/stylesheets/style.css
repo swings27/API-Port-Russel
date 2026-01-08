@@ -15,7 +15,7 @@ body {
 }
 
 .home {
-  padding: 20px 0;
+  padding: 60px 0;
 }
 
 h1 {
@@ -24,12 +24,29 @@ h1 {
   font-size: 4em;
 }
 
+.logo {
+    border-radius: 75px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: white;
+    width: 80px;
+    height: 80px;
+}
+
 .container-home {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
-  margin: 30px auto;
+  margin: 0 auto;
+}
+
+.welcome-title {
+  font-family: "Libre Bodoni", Georgia, serif;
+  color: white;
+  background-color: rgb(5, 10, 89);
+  border-radius: 50px;
+  padding: 10px;
 }
 
 .welcome-box {
@@ -43,6 +60,7 @@ h1 {
   width: 30%;
   background-color: white;
   border-radius: 10px;
+  margin-top: 30px;
   padding: 35px;
 }
 
@@ -52,7 +70,7 @@ h1 {
 }
 
 .welcome-text {
-  padding-top: 20px;
+  padding-top: 10px;
   text-align: left;
   line-height: 1.5;
 }

@@ -111,7 +111,6 @@ exports.deleteUser = async (req, res, next) => {
 //Authentification
 exports.login = async (req, res, next) => {
     const { email, password } = req.body;
-    console.log('POST /login appelé');
     console.log(req.body);
 
     if (!email || !password) {
@@ -153,7 +152,13 @@ exports.login = async (req, res, next) => {
 
 // Se déconnecter
 exports.logout = async (req, res, next) => {
-    res.clearCookie('token');
-    res.redirect('/');
+    console.log('LOGOUT appelé')
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax'
+    });
+    
+    return res.redirect('/');
 };
 
