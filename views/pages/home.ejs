@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<%- include('../partials/head') %>
+	<body>
+		<main class="home">
+			<h1><%= title %></h1>
+			<img class="logo" src="/images/quai.png" alt="logo de la Capitainerie du Port Russel">
+			<div class="container-home">
+				<div class="welcome-box">
+					<h2 class="welcome-title">Bienvenue sur notre site !</h2>
+					<div class="welcome-text">
+						<p>
+							Notre port vous accueille dans un cadre sécurisé et convivial,
+							avec <strong>30 catways</strong> adaptés à différents types
+							d’embarcations.
+						</p>
+                        <p>
+                            Depuis ce site, vous pouvez consulter les
+							disponibilités et réserver facilement votre catway en ligne, en
+							toute simplicité.
+                        </p>
+                        <section>
+                            <p>La capitainerie est ouverte :</p>
+                            <p>🕘 <strong>Du lundi au dimanche</strong></p>
+                            <ul>
+                                <li>Basse saison : de 9h00 à 12h00 et de 14h00 à 17h00</li>
+                                <li>Haute saison : de 8h00 à 19h00 en continu</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <p>
+                                Pour toute information complémentaire ou assistance, l’équipe de
+                                la capitainerie est à votre écoute.
+                            </p>
+                            <p>📞 Téléphone : <strong>01 23 45 67 89</strong></p>
+                            <p>
+                                Nous vous souhaitons une excellente navigation et un agréable
+                                séjour au port.
+                            </p>
+                        </section>
+					</div>
+				</div>
+				<form action="/users/login" method="POST" class="login-form">
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input
+							type="email"
+							name="email"
+							id="email"
+							placeholder="user@email.com"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="password">Mot de passe</label>
+						<input
+							type="password"
+							name="password"
+							id="password"
+							placeholder="Votre mot de passe"
+							required
+						/>
+					</div>
+					<button type="submit">Connexion</button>
+					<p><a href="#">S'inscrire ?</a></p>
+				</form>
+			</div>
+		</main>
+		<%- include('../partials/footer') %>
+	</body>
+</html>

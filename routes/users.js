@@ -6,6 +6,37 @@ const private = require('../middlewares/private');
 
 /**
  * @swagger
+ * tags:
+ *   name: Users
+ *   description: >
+ *     Gestion des utilisateurs.
+ *     ⚠️ Note technique : les routes statiques (ex: /users/logout)
+ *     doivent être déclarées avant les routes dynamiques (ex: /users/{email})
+ *     afin d'éviter les conflits de routage dans Express.
+ */
+
+/**
+ * @swagger
+ * /login:
+ *    post:
+ *      summary: Se connecter à son compte
+ *      tags:
+ *          - Users
+ */
+router.post('/login', service.login);
+
+/**
+ * @swagger
+ * /logout:
+ *    get:
+ *      summary: Se déconnecter de son compte
+ *      tags: 
+ *          - Users
+ */
+router.get('/logout', service.logout);
+
+/**
+ * @swagger
  * /users:
  *  get:
  *      summary: Récupére la liste de tous les utilisateurs
@@ -54,24 +85,5 @@ router.put('/:email', private.checkJWT, service.updateUser);
  */
 router.delete('/:id', private.checkJWT, service.deleteUser);
 
-/**
- * @swagger
- * /login:
- *    post:
- *      summary: Se connecter à son compte
- *      tags:
- *          - Connexion
- */
-router.post('/login', service.authenticate);
-
-/**
- * @swagger
- * /logout:
- *    get:
- *      summary: Se déconnecter de son compte
- *      tags: 
- *          - Connexion
- */
-router.get('/logout', service.logout);
 
 module.exports = router;

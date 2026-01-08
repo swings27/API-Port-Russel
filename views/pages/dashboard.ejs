@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+    <html lang="fr">
+        <%- include('../partials/head') %>
+        <body>
+            <main class="dashboard">
+                <div class="navigation">
+                    <h2 class="dashboard-title">Tableau de bord</h2>
+                    <div class="profile">
+                        <img class="profile-pic" src="/images/utilisateur.png" alt="Photo de profil">
+                            <h3>Bienvenue <%= user.firstname %> <%= user.name %></h3>
+                            <p>Adresse mail : <%= user.email %></p>
+                            <p>Bateau : Xubis</p>
+                        </div>
+                    <nav>
+                        <ul>
+                           <li>Catways</li> 
+                           <li>Réservations</li>
+                           <li>Utilisateurs</li>
+                           <li><a href="http://localhost:8000/api-docs" target="_blank" class="link">Documentation API</a></li>
+                        </ul>
+                    </nav>
+                    <button><a href="/users/logout" class="link">Déconnexion</a></button>
+                </div>
+                <div class="overview">
+                    <div class="data">
+                        <p>Aujourd'hui, nous sommes le : <%= date %></p>
+                    </div>
+                    <div class="main-content">
+                        <div class="summary">
+                            <h3 id="chart-title">Réservations en cours</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Numéro catway</th>
+                                        <th>Client</th>
+                                        <th>Bateau</th>
+                                        <th>Date de début</th>
+                                        <th>Date de fin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (reservations.length === 0) { %>
+                                        <tr>
+                                            <td colspan="5">Aucune réservation en cours</td>
+                                        </tr>
+                                    <% } else { %>
+                                        <% reservations.forEach(reservation => { %>
+                                            <tr>
+                                                <td><%= reservation.catwayNumber %></td>
+                                                <td><%= reservation.clientName %></td>
+                                                <td><%= reservation.boatName %></td>
+                                                <td><%= reservation.startDate.toLocaleDateString() %></td>
+                                                <td><%= reservation.endDate.toLocaleDateString() %></td>
+                                            </tr>
+                                        <% }) %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../partials/footer') %>
+        </body>
+    </html>
