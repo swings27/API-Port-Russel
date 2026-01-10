@@ -13,9 +13,9 @@
                         </div>
                     <nav>
                         <ul>
-                           <li>Catways</li> 
+                           <li><a href="/catways" class="link">Catways</a></li> 
                            <li>Réservations</li>
-                           <li>Utilisateurs</li>
+                           <li><a href="/users" class="link">Utilisateurs</a></li>
                            <li><a href="http://localhost:8000/api-docs" target="_blank" class="link">Documentation API</a></li>
                         </ul>
                     </nav>
@@ -26,37 +26,7 @@
                         <p>Aujourd'hui, nous sommes le : <%= date %></p>
                     </div>
                     <div class="main-content">
-                        <div class="summary">
-                            <h3 id="chart-title">Réservations en cours</h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Numéro catway</th>
-                                        <th>Client</th>
-                                        <th>Bateau</th>
-                                        <th>Date de début</th>
-                                        <th>Date de fin</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% if (reservations.length === 0) { %>
-                                        <tr>
-                                            <td colspan="5">Aucune réservation en cours</td>
-                                        </tr>
-                                    <% } else { %>
-                                        <% reservations.forEach(reservation => { %>
-                                            <tr>
-                                                <td><%= reservation.catwayNumber %></td>
-                                                <td><%= reservation.clientName %></td>
-                                                <td><%= reservation.boatName %></td>
-                                                <td><%= reservation.startDate.toLocaleDateString() %></td>
-                                                <td><%= reservation.endDate.toLocaleDateString() %></td>
-                                            </tr>
-                                        <% }) %>
-                                    <% } %>
-                                </tbody>
-                            </table>
-                        </div>
+                       <%- include(`../dashboard/${content}`) %> 
                     </div>
                 </div>
             </main>

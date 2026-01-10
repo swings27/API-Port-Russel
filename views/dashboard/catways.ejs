@@ -1,0 +1,23 @@
+<div class="summary">
+	<h3 id="chart-title">Nos catways</h3>
+	<div class="wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th>Numéro catway</th>
+					<th>Type</th>
+					<th>Etat</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% catways.forEach(catway => { %>
+				<tr>
+					<td><%= catway.catwayNumber %></td>
+					<td><%= catway.catwayType %></td>
+					<td><%= catway.catwayState %></td>
+				</tr>
+				<% }) %>
+			</tbody>
+		</table>
+	</div>
+</div>

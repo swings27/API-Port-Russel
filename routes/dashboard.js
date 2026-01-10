@@ -26,7 +26,8 @@ router.get('/', private.checkJWT, async (req, res) => {
         res.render('pages/dashboard', {
             user,
             date: now.toLocaleDateString('fr-FR'),
-            reservations: currentReservations
+            reservations: currentReservations,
+            content: 'listing'
         });
     } catch (error) {
         console.error('Erreur dashboard:', error);

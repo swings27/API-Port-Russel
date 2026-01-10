@@ -4,13 +4,15 @@ const Catway = require('../models/catways');
 // Récupérer tous les catways
 exports.getAllCatways = async (req, res, next) => {
     try {
-        let catway = await Catway.find();
+        const catways = await Catway.find();
 
-        if (catway) {
-            return res.status(200).json(catway)
-        }
-        return res.status(404).json('Linsting introuvable')
+        res.render('pages/dashboard', {
+            catways,
+            content: 'catways'
+        });
+
     } catch (error) {
+        console.error('Erreur getAllCatways :', error);
         res.status(500).json(error);
     }
 };
@@ -19,8 +21,12 @@ exports.getAllCatways = async (req, res, next) => {
 exports.getByNumber = async (req, res, next) => {
     const catwayNumber = parseInt(req.params.id);
 
+    if (isNaN(catwayNumber)) {
+        return res.status(400).json('Numéro de catway invalide');
+    }
+
     try {
-        let catway = await Catway.findOne({ catwayNumber });
+        const catway = await Catway.findOne({ catwayNumber });
 
         if (catway) {
             return res.status(200).json(catway);

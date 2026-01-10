@@ -3,6 +3,7 @@ var router = express.Router();
 
 const service = require('../services/users');
 const private = require('../middlewares/private');
+const data = require('../middlewares/data');
 
 /**
  * @swagger
@@ -43,7 +44,7 @@ router.get('/logout', service.logout);
  *      tags:
  *          - Users
  */
-router.get('/', private.checkJWT, service.getAllUsers);
+router.get('/', private.checkJWT, data.loadUser, service.getAllUsers);
 
 /**
  * @swagger
@@ -53,7 +54,7 @@ router.get('/', private.checkJWT, service.getAllUsers);
  *     tags:
  *       - Users
  */
-router.get('/:email', private.checkJWT, service.getUser);
+router.get('/:email', private.checkJWT, data.loadUser, service.getUser);
 
 /**
  * @swagger
@@ -73,7 +74,7 @@ router.post('/', service.createUser);
  *     tags:
  *       - Users
  */
-router.put('/:email', private.checkJWT, service.updateUser);
+router.put('/:email', private.checkJWT, data.loadUser, service.updateUser);
 
 /**
  * @swagger
@@ -83,7 +84,7 @@ router.put('/:email', private.checkJWT, service.updateUser);
  *     tags:
  *       - Users
  */
-router.delete('/:id', private.checkJWT, service.deleteUser);
+router.delete('/:id', private.checkJWT, data.loadUser, service.deleteUser);
 
 
 module.exports = router;

@@ -6,13 +6,13 @@ const jwt = require('jsonwebtoken');
 //Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res, next) => {
     try {
-        let user = await User.find();
+        const users = await User.find();
 
-        if (user) {
-            return res.status(200).json(user)
-        }
-        
-        return res.status(404).json('Listing introuvable');
+        res.render('pages/dashboard', {
+            users,
+            content: 'users'
+        })
+
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -23,7 +23,7 @@ exports.getUser = async (req, res, next) => {
     const email = req.params.email
 
     try {
-        let user = await User.findOne({ email });
+        const user = await User.findOne({ email });
 
         if (user) {
             return res.status(200).json(user);

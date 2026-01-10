@@ -3,6 +3,7 @@ const router = express.Router();
 
 const service = require('../services/catways');
 const private = require('../middlewares/private');
+const data = require('../middlewares/data');
 
 /**
  * /catways:
@@ -11,7 +12,7 @@ const private = require('../middlewares/private');
  *      tags:
  *          - Catways
  */
-router.get('/', private.checkJWT, service.getAllCatways);
+router.get('/', private.checkJWT, data.loadUser, service.getAllCatways);
 
 /**
  * @swagger
@@ -21,7 +22,7 @@ router.get('/', private.checkJWT, service.getAllCatways);
  *     tags:
  *       - Catways
  */
-router.get('/:id', private.checkJWT, service.getByNumber);
+router.get('/:id', private.checkJWT, data.loadUser, service.getByNumber);
 
 /**
  * @swagger
@@ -31,7 +32,7 @@ router.get('/:id', private.checkJWT, service.getByNumber);
  *     tags:
  *       - Catways
  */
-router.post('/', private.checkJWT, service.createCatway);
+router.post('/', private.checkJWT, data.loadUser, service.createCatway);
 
 /**
  * @swagger
@@ -41,7 +42,7 @@ router.post('/', private.checkJWT, service.createCatway);
  *     tags:
  *       - Catways
  */
-router.put('/:id', private.checkJWT, service.updateCatway);
+router.put('/:id', private.checkJWT, data.loadUser, service.updateCatway);
 
 /**
  * @swagger
@@ -51,6 +52,6 @@ router.put('/:id', private.checkJWT, service.updateCatway);
  *     tags:
  *       - Catways
  */
-router.delete('/:id', private.checkJWT, service.deleteCatway);
+router.delete('/:id', private.checkJWT, data.loadUser, service.deleteCatway);
 
 module.exports = router;
