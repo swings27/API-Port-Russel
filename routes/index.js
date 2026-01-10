@@ -12,6 +12,10 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/inscription', function(req, res, next) {
+  res.render('pages/inscription');
+});
+
 router.use('/dashboard', dashboardRouter);
 router.use('/users', usersRouter);
 router.use('/catways', catwaysRouter);

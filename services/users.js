@@ -44,6 +44,14 @@ exports.createUser = async (req, res, next) => {
         return res.status(400).json('Tous les champs sont obligatoires')
     }
 
+    //Vérification si utilisateur déjà existant
+    const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).render('pages/inscription', {
+                message: 'Cet email est déjà utilisé.'
+            });
+        }
+
     const temp = {
         name: name.trim(),
         firstname: firstname.trim(),
@@ -53,9 +61,14 @@ exports.createUser = async (req, res, next) => {
 
     try {
         let user = await User.create(temp);
-        return res.status(201).json(user);
+        return res.status(201).redirect('/', {
+            message: 'Inscription validée ! Vous pouvez maintenant vous connecter.'
+        });
+
     } catch (error) {
-        return res.status(500).json(error)
+        return res.status(500).render('pages/inscription', {
+            message: 'Erreur serveur, veuillez réessayer plus tard'
+        });
     }
 };
 
