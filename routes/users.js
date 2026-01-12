@@ -84,7 +84,7 @@ router.put('/:email', private.checkJWT, data.loadUserAndDate, service.updateUser
  *     tags:
  *       - Users
  */
-router.delete('/:id', private.checkJWT, data.loadUserAndDate, service.deleteUser);
+router.delete('/:email', private.checkJWT, data.loadUserAndDate, service.deleteUser);
 
 
 module.exports = router;

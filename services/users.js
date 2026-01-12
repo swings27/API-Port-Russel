@@ -14,13 +14,14 @@ exports.getAllUsers = async (req, res, next) => {
         })
 
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };
 
 //Récupérer un utilisateur spécifique
 exports.getUser = async (req, res, next) => {
-    const email = req.params.email
+    const email = decodeURIComponent(req.params.email);
 
     try {
         const profileUser = await User.findOne({ email });
@@ -37,6 +38,7 @@ exports.getUser = async (req, res, next) => {
         return res.status(404).json('Utilisateur non trouvé');
 
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };
@@ -78,7 +80,7 @@ exports.createUser = async (req, res, next) => {
 
 //Modifier un utilisateur
 exports.updateUser = async (req, res, next) => {
-    const userEmail = req.params.email;
+    const userEmail = decodeURIComponent(req.params.email);
     const { email, password } = req.body;
 
       //Vérification des champs
@@ -108,30 +110,35 @@ exports.updateUser = async (req, res, next) => {
             });
 
             await user.save();
-            return res.status(200).redirect(`/users/${user.email}?success=registered`);
+            return res.status(200).redirect(`/users/${user.email}?success=updated`);
         }
 
         return res.status(404).json("Utilisateur non trouvé");
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };
 
 //Supprimer un utilisateur
 exports.deleteUser = async (req, res, next) => {
-    const userEmail = req.params.email;
+    const userEmail = decodeURIComponent(req.params.email);
 
     try {
         const connectedUser = res.locals.user;
+        console.log('connectedUser.email:', connectedUser.email);
+        console.log('userEmail:', userEmail);
 
         if (connectedUser.email !== userEmail) {
             return res.status(403).json('Suppression non autorisée');
         }
 
-        await User.deleteOne(userEmail);
-        return res.status(204).redirect('/');
+        await User.deleteOne({ email: userEmail });
+
+        return res.redirect('/');
     } catch (error) {
-        return res.status(500).json(error)
+        console.error(error);
+        return res.status(500).json('Erreur serveur');
     }
 };
 
@@ -173,6 +180,7 @@ exports.login = async (req, res, next) => {
         res.redirect('/dashboard');
         
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };
