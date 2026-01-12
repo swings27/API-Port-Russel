@@ -12,7 +12,7 @@ const data = require('../middlewares/data');
  *      tags:
  *          - Catways
  */
-router.get('/', private.checkJWT, data.loadUser, service.getAllCatways);
+router.get('/', private.checkJWT, data.loadUserAndDate, service.getAllCatways);
 
 /**
  * @swagger
@@ -22,7 +22,7 @@ router.get('/', private.checkJWT, data.loadUser, service.getAllCatways);
  *     tags:
  *       - Catways
  */
-router.get('/:id', private.checkJWT, data.loadUser, service.getByNumber);
+router.get('/:id', private.checkJWT, data.loadUserAndDate, service.getByNumber);
 
 /**
  * @swagger
@@ -32,7 +32,7 @@ router.get('/:id', private.checkJWT, data.loadUser, service.getByNumber);
  *     tags:
  *       - Catways
  */
-router.post('/', private.checkJWT, data.loadUser, service.createCatway);
+router.post('/', private.checkJWT, data.loadUserAndDate, service.createCatway);
 
 /**
  * @swagger
@@ -42,7 +42,7 @@ router.post('/', private.checkJWT, data.loadUser, service.createCatway);
  *     tags:
  *       - Catways
  */
-router.put('/:id', private.checkJWT, data.loadUser, service.updateCatway);
+router.put('/:id', private.checkJWT, data.loadUserAndDate, service.updateCatway);
 
 /**
  * @swagger
@@ -52,6 +52,6 @@ router.put('/:id', private.checkJWT, data.loadUser, service.updateCatway);
  *     tags:
  *       - Catways
  */
-router.delete('/:id', private.checkJWT, data.loadUser, service.deleteCatway);
+router.delete('/:id', private.checkJWT, data.loadUserAndDate, service.deleteCatway);
 
 module.exports = router;

@@ -99,7 +99,7 @@ input {
   padding: 10px 10px;
 }
 
-button {
+.blue-button {
   border: none;
   border-radius: 10px;
   background-color: rgb(5, 10, 89);
@@ -111,11 +111,18 @@ button {
   margin: 15px auto;
 }
 
-button:hover {
+.blue-button:hover {
   background-color: #d1f0ff;
   color: rgb(5, 10, 89);
   transition: 1s ease;
   cursor: pointer;
+}
+
+.small-button {
+  margin: 10px 0 5px 0;
+  width: 100px;
+  padding: 7px;
+  border-radius: 25px;
 }
 
 a {

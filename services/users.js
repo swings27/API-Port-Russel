@@ -23,13 +23,19 @@ exports.getUser = async (req, res, next) => {
     const email = req.params.email
 
     try {
-        const user = await User.findOne({ email });
+        const profileUser = await User.findOne({ email });
+        const success = req.query.success;
 
-        if (user) {
-            return res.status(200).json(user);
+        if (profileUser) {
+            return res.render('pages/dashboard', {
+                profileUser,
+                content: 'profile',
+                success
+            });
         }
 
         return res.status(404).json('Utilisateur non trouvé');
+
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -47,7 +53,7 @@ exports.createUser = async (req, res, next) => {
     //Vérification si utilisateur déjà existant
     const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).render('pages/inscription', {
+            return res.render('pages/inscription', {
                 message: 'Cet email est déjà utilisé.'
             });
         }
@@ -75,22 +81,26 @@ exports.createUser = async (req, res, next) => {
 //Modifier un utilisateur
 exports.updateUser = async (req, res, next) => {
     const userEmail = req.params.email;
-    const { name, firstname, email, password } = req.body;
+    const { email, password } = req.body;
 
       //Vérification des champs
-    if (!name || !firstname || !email || !password) {
+    if (!email || !password) {
         return res.status(400).json('Tous les champs sont obligatoires')
     }
 
     const temp = {
-        name: name.trim(),
-        firstname: firstname.trim(),
         email: email.toLowerCase().trim(),
         password
     };
 
     try {
-        let user = await User.findOne({ email : userEmail });
+        const connectedUser = res.locals.user;
+       
+        if (connectedUser.email !== userEmail) {
+            return res.status(403).json('Modification non autorisée');
+        }
+
+        const user = await User.findOne({ email : userEmail });
 
         if (user) {
             Object.keys(temp).forEach((key) => {
@@ -100,7 +110,7 @@ exports.updateUser = async (req, res, next) => {
             });
 
             await user.save();
-            return res.status(200).json(user);
+            return res.status(200).redirect(`/users/${user.email}?success=updated`);
         }
 
         return res.status(404).json("Utilisateur non trouvé");
@@ -111,11 +121,17 @@ exports.updateUser = async (req, res, next) => {
 
 //Supprimer un utilisateur
 exports.deleteUser = async (req, res, next) => {
-    const email = req.params.email
+    const userEmail = req.params.email;
 
     try {
-        await User.deleteOne(email);
-        return res.status(204).json('Utilisateur supprimé');
+        const connectedUser = res.locals.user;
+
+        if (connectedUser.email !== userEmail) {
+            return res.status(403).json('Suppression non autorisée');
+        }
+
+        await User.deleteOne(userEmail);
+        return res.status(204).redirect('/');
     } catch (error) {
         return res.status(500).json(error)
     }

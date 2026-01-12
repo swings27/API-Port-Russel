@@ -1,0 +1,55 @@
+<div id="profile-page">
+	<h2 class="welcome-title">Profil</h2>
+	<div class="container">
+		<img id="picture" src="/images/utilisateur.png" alt="Photo de profil" />
+		<h3><%= profileUser.firstname %> <%= profileUser.name %></h3>
+		<div>
+			<ul class="infos">
+                <li>Nom : <%= profileUser.name %></li>
+                <li>Prénom : <%= profileUser.firstname %></li>
+				<li>Adresse mail : <%= profileUser.email %></li>
+				<li>Inscription : <%= profileUser.createdAt.toLocaleDateString() %></li>
+			</ul>
+		</div>
+	</div>
+	<% if (user.email === profileUser.email) { %>
+	<!-- Formulaire de modification -->
+	<form
+		action="/users/<%= profileUser.email %>?_method=PUT"
+		method="post"
+		id="profile-form"
+	>
+		<input type="hidden" name="_method" value="PUT" />
+
+		<label>Email</label>
+		<input
+			type="email"
+			name="email"
+			value="<%= profileUser.email %>"
+			required
+		/>
+
+		<label>Mot de passe</label>
+		<input type="password" name="password" placeholder="Nouveau mot de passe" />
+
+		<button type="submit" class="small-button">Modifier</button>
+	</form>
+
+    <!-- Bouton de suppression -->
+    <form action="/users/<%= profileUser.email %>?_method=DELETE" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="blue-button">Supprimer le compte</button>
+    </form>
+
+	<% } else { %>
+	<!-- LECTURE SEULE -->
+	<p><em>Vous consultez le profil d’un autre utilisateur.</em></p>
+	<% } %>
+
+    <% if (success === 'updated') { %>
+    <div class="alert success">
+        <em>Profil modifié avec succès !</em>
+    </div>
+    <% } %>
+
+</div>

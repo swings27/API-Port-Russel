@@ -46,7 +46,7 @@ nav ul li:hover {
     cursor: pointer;
 }
 
-.navigation button {
+.navigation .blue-button {
     margin-top: 100px;
 }
 
@@ -82,3 +82,4 @@ h3 {
     color: white;
     margin: 25px 0;
 }
+

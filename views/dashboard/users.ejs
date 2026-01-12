@@ -12,7 +12,7 @@
 			</thead>
 			<tbody>
 				<% users.forEach(user => { %>
-				<tr>
+				<tr onclick="window.location.href='/users/<%= user.email %>'">
 					<td><%= user.name %></td>
 					<td><%= user.firstname %></td>
 					<td><%= user.email %></td>

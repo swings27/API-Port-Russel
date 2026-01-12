@@ -44,7 +44,7 @@ router.get('/logout', service.logout);
  *      tags:
  *          - Users
  */
-router.get('/', private.checkJWT, data.loadUser, service.getAllUsers);
+router.get('/', private.checkJWT, data.loadUserAndDate, service.getAllUsers);
 
 /**
  * @swagger
@@ -54,7 +54,7 @@ router.get('/', private.checkJWT, data.loadUser, service.getAllUsers);
  *     tags:
  *       - Users
  */
-router.get('/:email', private.checkJWT, data.loadUser, service.getUser);
+router.get('/:email', private.checkJWT, data.loadUserAndDate, service.getUser);
 
 /**
  * @swagger
@@ -74,7 +74,7 @@ router.post('/', service.createUser);
  *     tags:
  *       - Users
  */
-router.put('/:email', private.checkJWT, data.loadUser, service.updateUser);
+router.put('/:email', private.checkJWT, data.loadUserAndDate, service.updateUser);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.put('/:email', private.checkJWT, data.loadUser, service.updateUser);
  *     tags:
  *       - Users
  */
-router.delete('/:id', private.checkJWT, data.loadUser, service.deleteUser);
+router.delete('/:id', private.checkJWT, data.loadUserAndDate, service.deleteUser);
 
 
 module.exports = router;
