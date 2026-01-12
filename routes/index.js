@@ -7,8 +7,10 @@ const catwaysRouter = require('../routes/catways');
 const reservationsRouter = require('../routes/reservations');
 
 router.get('/', function(req, res, next) {
+  const success = req.query.success;
   res.render('pages/home', { 
     title: 'Capitainerie du Port Russel',
+    success
   });
 });
 

@@ -66,10 +66,8 @@ exports.createUser = async (req, res, next) => {
     };
 
     try {
-        let user = await User.create(temp);
-        return res.status(201).redirect('/', {
-            message: 'Inscription validée ! Vous pouvez maintenant vous connecter.'
-        });
+        await User.create(temp);
+        return res.redirect('/?success=registered');
 
     } catch (error) {
         return res.status(500).render('pages/inscription', {
@@ -110,7 +108,7 @@ exports.updateUser = async (req, res, next) => {
             });
 
             await user.save();
-            return res.status(200).redirect(`/users/${user.email}?success=updated`);
+            return res.status(200).redirect(`/users/${user.email}?success=registered`);
         }
 
         return res.status(404).json("Utilisateur non trouvé");
