@@ -22,7 +22,7 @@ router.get('/', private.checkJWT, data.loadUserAndDate, service.getAllCatways);
  *     tags:
  *       - Catways
  */
-router.get('/:id', private.checkJWT, data.loadUserAndDate, service.getByNumber);
+router.get('/:id', private.checkJWT, data.loadUserAndDate, service.getById);
 
 /**
  * @swagger

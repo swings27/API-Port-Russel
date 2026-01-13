@@ -1,0 +1,91 @@
+.page-container {
+    display: flex;
+    flex-direction: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.title {
+    background-color: #d1f0ff;
+    color: rgb(5, 10, 89);
+    text-transform: uppercase;
+    width: 50%;
+    margin: 15px auto;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.catway-form {
+    width: 30%;
+    background-color: #d1f0ff;
+    padding: 15px 25px 15px 10px;
+    border-radius: 25px;
+}
+
+.inline-form {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    margin: 15px 0;
+}
+
+.inline-form .form-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.add-title {
+    color: rgb(5, 10, 89);
+    text-decoration: underline;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+.add-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #d1f0ff;
+}
+
+.radio-group {
+    display: flex;
+    align-items: left;
+    gap: 20px;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.radio-group legend {
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.radio-group label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.manager-infos {
+    width: 30%;
+}
+
+#photo {
+    width: 350px;
+    margin: 20px auto;
+    padding: 5px;
+    border: 5px solid #d1f0ff;
+    border-radius: 15px;
+}
+
+.description {
+    font-size: 1.2em;
+    text-align: left;
+    line-height: 1.5em;
+}
+

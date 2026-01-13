@@ -1,0 +1,53 @@
+<div class="summary">
+	<h3 class="chart-title">Catway #<%= catway.catwayNumber %></h3>
+	<div class="page-container">
+		<div class="manager-infos">
+            <h4 class="title">Informations</h4>
+			<div class="description">
+				<p><strong>Numéro du catway :</strong> <%= catway.catwayNumber %></p>
+				<p><strong>Type de catway :</strong> <%= catway.catwayType %></p>
+				<p><strong>Etat du catway :</strong> <%= catway.catwayState %></p>
+			</div>
+            <img id="photo" src="/images/catway.jpg"/>
+            <button type="button" class="blue-button"><a href="/catways/<%= catway.id %>/reservations" class="link">Voir les réservations</a></button>
+		</div>
+		<div class="catway-form">
+			<h5 class="add-title">Modifier le catway</h5>
+			<p>Vous pouvez modifier l'état du catway ou bien le supprimer.</p>
+			<form
+				action="/catways/<%= catway.id %>?_method=PUT"
+				method="post"
+				class="inline-form"
+			>
+				<div class="form-group">
+					<label for="catwayState" class="label">Etat</label>
+					<input
+						type="text"
+						name="catwayState"
+						id="catwayState"
+						placeholder="Excellent/bon/ moyen état, commentaire"
+						required
+					/>
+				</div>
+				<button type="submit" class="small-button">Enregistrer</button>
+                <% if (success === 'updated') { %>
+			<div class="alert success">
+				<em>Catway modifié avec succès !</em>
+			</div>
+			<% } %>
+			</form>
+
+			<!-- Bouton de suppression -->
+            <h5 class="add-title">Supprimer le catway</h5>
+			<form
+				action="/catways/<%= catway.id %>?_method=DELETE"
+				method="post"
+				onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?');"
+			>
+				<input type="hidden" name="_method" value="DELETE" />
+				<button type="submit" class="blue-button">Supprimer</button>
+			</form>
+		</div>
+	</div>
+    <button type="button" class="back-button"><a href="/catways" class="link"> ← Retour</a></button>
+</div>

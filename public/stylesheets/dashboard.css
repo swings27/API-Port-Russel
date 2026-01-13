@@ -47,7 +47,7 @@ nav ul li:hover {
 }
 
 .navigation .blue-button {
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 .link {
@@ -77,9 +77,4 @@ nav ul li:hover {
     flex: 4;
 }
 
-h3 {
-    text-transform: capitalize;
-    color: white;
-    margin: 25px 0;
-}
 
