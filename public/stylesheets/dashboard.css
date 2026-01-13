@@ -1,13 +1,16 @@
 .dashboard {
     display: flex;
-    flex-flow: row nowrap;
+    flex: 1;
     width: 100%;
-    min-height: 100vh;
 }
+
 .navigation {
     width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: rgb(5, 10, 89);
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 25px 0 0;
 }
 
 .dashboard-title {
@@ -20,7 +23,7 @@
 
 .profile {
     color: white;
-    margin: 20px auto 100px;
+    margin: 20px auto;
     border: 5px solid white;
     border-radius: 60px;
     padding: 20px 10px;
@@ -46,8 +49,8 @@ nav ul li:hover {
     cursor: pointer;
 }
 
-.navigation button {
-    margin-top: 100px;
+.navigation .blue-button {
+    margin-top: 70px;
 }
 
 .link {
@@ -71,14 +74,11 @@ nav ul li:hover {
     display: flex;
     flex: 1;
     background-color: white;
+    min-height: 0;
 }
 
 .summary {
     flex: 4;
 }
 
-h3 {
-    text-transform: capitalize;
-    color: white;
-    margin: 25px 0;
-}
+

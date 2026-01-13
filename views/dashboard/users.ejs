@@ -1,0 +1,25 @@
+<div class="summary">
+	<h3 class="chart-title">Utilisateurs enregistrés</h3>
+	<div class="wrapper">
+		<table>
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Email</th>
+					<th>Inscription</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% users.forEach(user => { %>
+				<tr onclick="window.location.href='/users/<%= user.email %>'">
+					<td><%= user.name %></td>
+					<td><%= user.firstname %></td>
+					<td><%= user.email %></td>
+					<td><%= user.createdAt.toLocaleDateString() %></td>
+				</tr>
+				<% }) %>
+			</tbody>
+		</table>
+	</div>
+</div>

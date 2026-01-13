@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const methodOverride = require('method-override');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require("./swagger");
 
@@ -22,6 +23,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 // Utiliser Swagger UI pour afficher la documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<%- include('../partials/head') %>
+	<body>
+		<main class="home">
+
+			<% if (typeof message !== 'undefined') { %>
+			<script>
+				alert("<%= message %>");
+			</script>
+			<% } %>
+
+			<a href="/"
+				><img
+					class="logo"
+					src="/images/quai.png"
+					alt="logo de la Capitainerie du Port Russel"
+			/></a>
+
+			<div class="signin">
+                <h2 class="welcome-title">Création de votre espace client</h2>
+				<form action="/users" method="post" class="login-form">
+					<div class="form-group">
+						<label for="name" class="label">Nom</label>
+						<input
+							type="text"
+							name="name"
+							id="name"
+							placeholder="Croc"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="firstname" class="label">Prénom</label>
+						<input
+							type="text"
+							name="firstname"
+							id="firstname"
+							placeholder="Odile"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="email" class="label">Email</label>
+						<input
+							type="email"
+							name="email"
+							id="email"
+							placeholder="user@email.com"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="password" class="label">Mot de passe</label>
+						<input
+							type="password"
+							name="password"
+							id="password"
+							placeholder="Votre mot de passe"
+							required
+						/>
+					</div>
+					<button type="submit" class="blue-button">S'enregistrer</button>
+				</form>
+			</div>
+		</main>
+		<%- include('../partials/footer') %>
+	</body>
+</html>

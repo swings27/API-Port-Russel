@@ -6,31 +6,39 @@ const jwt = require('jsonwebtoken');
 //Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res, next) => {
     try {
-        let user = await User.find();
+        const users = await User.find();
 
-        if (user) {
-            return res.status(200).json(user)
-        }
-        
-        return res.status(404).json('Listing introuvable');
+        res.render('pages/dashboard', {
+            users,
+            content: 'users'
+        })
+
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };
 
 //Récupérer un utilisateur spécifique
 exports.getUser = async (req, res, next) => {
-    const email = req.params.email
+    const email = decodeURIComponent(req.params.email);
 
     try {
-        let user = await User.findOne({ email });
+        const profileUser = await User.findOne({ email });
+        const success = req.query.success;
 
-        if (user) {
-            return res.status(200).json(user);
+        if (profileUser) {
+            return res.render('pages/dashboard', {
+                profileUser,
+                content: 'profile',
+                success
+            });
         }
 
         return res.status(404).json('Utilisateur non trouvé');
+
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };
@@ -44,6 +52,14 @@ exports.createUser = async (req, res, next) => {
         return res.status(400).json('Tous les champs sont obligatoires')
     }
 
+    //Vérification si utilisateur déjà existant
+    const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.render('pages/inscription', {
+                message: 'Cet email est déjà utilisé.'
+            });
+        }
+
     const temp = {
         name: name.trim(),
         firstname: firstname.trim(),
@@ -52,32 +68,39 @@ exports.createUser = async (req, res, next) => {
     };
 
     try {
-        let user = await User.create(temp);
-        return res.status(201).json(user);
+        await User.create(temp);
+        return res.redirect('/?success=registered');
+
     } catch (error) {
-        return res.status(500).json(error)
+        return res.status(500).render('pages/inscription', {
+            message: 'Erreur serveur, veuillez réessayer plus tard'
+        });
     }
 };
 
 //Modifier un utilisateur
 exports.updateUser = async (req, res, next) => {
-    const userEmail = req.params.email;
-    const { name, firstname, email, password } = req.body;
+    const userEmail = decodeURIComponent(req.params.email);
+    const { email, password } = req.body;
 
       //Vérification des champs
-    if (!name || !firstname || !email || !password) {
+    if (!email || !password) {
         return res.status(400).json('Tous les champs sont obligatoires')
     }
 
     const temp = {
-        name: name.trim(),
-        firstname: firstname.trim(),
         email: email.toLowerCase().trim(),
         password
     };
 
     try {
-        let user = await User.findOne({ email : userEmail });
+        const connectedUser = res.locals.user;
+       
+        if (connectedUser.email !== userEmail) {
+            return res.status(403).json('Modification non autorisée');
+        }
+
+        const user = await User.findOne({ email : userEmail });
 
         if (user) {
             Object.keys(temp).forEach((key) => {
@@ -87,24 +110,35 @@ exports.updateUser = async (req, res, next) => {
             });
 
             await user.save();
-            return res.status(200).json(user);
+            return res.status(200).redirect(`/users/${user.email}?success=updated`);
         }
 
         return res.status(404).json("Utilisateur non trouvé");
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };
 
 //Supprimer un utilisateur
 exports.deleteUser = async (req, res, next) => {
-    const email = req.params.email
+    const userEmail = decodeURIComponent(req.params.email);
 
     try {
-        await User.deleteOne(email);
-        return res.status(204).json('Utilisateur supprimé');
+        const connectedUser = res.locals.user;
+        console.log('connectedUser.email:', connectedUser.email);
+        console.log('userEmail:', userEmail);
+
+        if (connectedUser.email !== userEmail) {
+            return res.status(403).json('Suppression non autorisée');
+        }
+
+        await User.deleteOne({ email: userEmail });
+
+        return res.redirect('/');
     } catch (error) {
-        return res.status(500).json(error)
+        console.error(error);
+        return res.status(500).json('Erreur serveur');
     }
 };
 
@@ -146,6 +180,7 @@ exports.login = async (req, res, next) => {
         res.redirect('/dashboard');
         
     } catch (error) {
+        console.error(error);
         return res.status(500).json(error);
     }
 };

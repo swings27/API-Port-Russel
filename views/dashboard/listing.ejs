@@ -1,0 +1,29 @@
+<div class="summary">
+	<h3 class="chart-title">Réservations en cours</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Numéro catway</th>
+				<th>Client</th>
+				<th>Bateau</th>
+				<th>Date de début</th>
+				<th>Date de fin</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if (reservations.length === 0) { %>
+			<tr>
+				<td colspan="5">Aucune réservation en cours</td>
+			</tr>
+			<% } else { %> <% reservations.forEach(reservation => { %>
+			<tr>
+				<td><%= reservation.catwayNumber %></td>
+				<td><%= reservation.clientName %></td>
+				<td><%= reservation.boatName %></td>
+				<td><%= reservation.startDate.toLocaleDateString() %></td>
+				<td><%= reservation.endDate.toLocaleDateString() %></td>
+			</tr>
+			<% }) %> <% } %>
+		</tbody>
+	</table>
+</div>

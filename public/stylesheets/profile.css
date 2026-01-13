@@ -1,0 +1,27 @@
+#profile-page {
+    width: 40%;
+    margin: 40px auto;
+}
+
+.container {
+    padding: 30px;
+    font-size: 1.2em;
+}
+
+.infos {
+    text-align: left;
+}
+
+#picture {
+    width: 120px;
+    height: 120px;
+}
+
+#profile-form {
+    width: 30%;
+    margin: 0 auto;
+}
+
+#profile-page form {
+    margin-top: 20px;
+}

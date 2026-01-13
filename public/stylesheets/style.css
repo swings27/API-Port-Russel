@@ -5,23 +5,47 @@
 
 html, body {
   height: 100%;
+  margin: 0;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   text-align: center;
   background-color: #d1f0ff;
   font: 1em "Neuton", Georgia, serif;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  flex: 1;
 }
 
 .home {
-  padding: 60px 0;
+  padding: 30px 0;
 }
 
 h1 {
   color: rgb(5, 10, 89);
   font-family: "Libre Bodoni", Georgia, serif;
   font-size: 4em;
+}
+
+h3 {
+    text-transform: capitalize;
+    color: white;
+    margin: 25px 0;
+}
+
+h4 {
+  color: white;
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1.1em;
 }
 
 .logo {
@@ -49,24 +73,31 @@ h1 {
   padding: 10px;
 }
 
-.welcome-box {
+.container-home .welcome-box, .container-home .login-form {
   width: 30%;
+}
+
+.welcome-box {
   padding: 0 20px;
+}
+
+.signin {
+  width: 50%;
+  margin: 0 auto;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  width: 30%;
   background-color: white;
   border-radius: 10px;
   margin-top: 30px;
-  padding: 35px;
+  padding: 30px;
 }
 
 .form-group {
   width: auto;
-  padding: 20px;
+  padding: 5px;
 }
 
 .welcome-text {
@@ -79,7 +110,7 @@ section {
   padding: 10px 0;
 }
 
-label {
+.label {
   display: block;
   text-align: left;
   font-weight: 700;
@@ -89,10 +120,10 @@ label {
 
 input {
   width: 100%;
-  padding: 15px 10px;
+  padding: 10px 10px;
 }
 
-button {
+.blue-button {
   border: none;
   border-radius: 10px;
   background-color: rgb(5, 10, 89);
@@ -104,11 +135,35 @@ button {
   margin: 15px auto;
 }
 
-button:hover {
+.blue-button:hover {
   background-color: #d1f0ff;
   color: rgb(5, 10, 89);
   transition: 1s ease;
   cursor: pointer;
+}
+
+.small-button {
+  margin: 10px 0 5px 0;
+  width: auto;
+  padding: 10px;
+  border-radius: 25px;
+  border: 4px solid #fff;
+  background-color: #d1f0ff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.small-button:hover {
+  cursor: pointer;
+}
+
+.back-button {
+  background-color: white;
+  border: 3px solid #d1f0ff;
+  border-radius: 25px;
+  padding: 5px;
+  width: auto;
+  margin: 50px 0 0 0;
 }
 
 a {
@@ -116,12 +171,8 @@ a {
 }
 
 footer {
-  box-sizing: border-box;
   width: 100%;
-  position: absolute;
-  bottom: 0;
   display: flex;
-  flex-flow: row nowrap;
   justify-content: space-between;
   background-color: rgb(5, 10, 89);
   color: white;

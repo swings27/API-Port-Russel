@@ -1,0 +1,71 @@
+<div class="summary">
+	<h3 class="chart-title">Nos catways</h3>
+	<div class="page-container">
+		<div class="wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>Numéro catway</th>
+						<th>Type</th>
+						<th>Etat</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% catways.forEach(catway => { %>
+					<tr onclick="window.location.href='/catways/<%= catway.id %>'">
+						<td><%= catway.catwayNumber %></td>
+						<td><%= catway.catwayType %></td>
+						<td><%= catway.catwayState %></td>
+					</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="catway-form">
+			<h4 class="add-title">Ajouter un catway</h4>
+			<p>Notre port possède 30 espaces de catways disponibles.</p>
+			<form action="/catways" method="post" class="add-form">
+				<div class="form-group">
+					<label for="catwayNumber" class="label">Numéro</label>
+					<input
+						type="number"
+						name="catwayNumber"
+						id="catwayNumber"
+						placeholder="7"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<fieldset class="radio-group">
+						<legend class="label">Type :</legend>
+						<label for="catwayType">
+							<input type="radio" name="catwayType" value="short" required/>
+							Short
+						</label>
+						<label for="catwayType">
+							<input type="radio" name="catwayType" value="long" required/>
+							Long
+						</label>
+					</fieldset>
+				</div>
+				<div class="form-group">
+					<label for="catwayState" class="label">Etat</label>
+					<input
+						type="text"
+						name="catwayState"
+						id="catwayState"
+						placeholder="Excellent/bon/ moyen état, commentaire"
+						required
+					/>
+				</div>
+				<button type="submit" class="blue-button">Enregistrer</button>
+			</form>
+
+			<% if (success === 'added') { %>
+			<div class="alert success">
+				<em>Catway ajouté avec succès !</em>
+			</div>
+			<% } %>
+		</div>
+	</div>
+</div>

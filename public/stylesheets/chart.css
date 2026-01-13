@@ -1,4 +1,4 @@
-#chart-title {
+.chart-title {
     background-color: rgb(5, 10, 89);
     text-transform: uppercase;
     width: 40%;
@@ -7,14 +7,31 @@
     border-radius: 50px;
 }
 
+.wrapper {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
 table {
   width: 80%;
-  margin: 30px auto;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 12px;
-  overflow: hidden;
+  border-collapse: collapse;
+  margin: 0 auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: rgb(5, 10, 89);
+  z-index: 10;
+}
+
+thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 12px;
 }
 
 th, td {
@@ -33,4 +50,5 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
   background-color: #d1f0ff;
+  cursor: pointer;
 }

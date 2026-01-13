@@ -1,0 +1,74 @@
+<div class="summary">
+	<h3 class="chart-title">Réservations catway #<%= catway.catwayNumber %></h3>
+	<div class="page-container">
+		<div class="wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>Catway</th>
+						<th>Client</th>
+						<th>Bateau</th>
+						<th>Date de début</th>
+						<th>Date de fin</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% if (bookings.length === 0) { %>
+					<tr>
+						<td colspan="5">Aucune réservation en cours</td>
+					</tr>
+					<% } else { %> <% bookings.forEach(booking => { %>
+					<tr
+						onclick="window.location.href='/catways/<%= catway.id %>/reservations/<%= booking.id %>'"
+					>
+						<td><%= booking.catwayNumber %></td>
+						<td><%= booking.clientName %></td>
+						<td><%= booking.boatName %></td>
+						<td><%= booking.startDate.toLocaleDateString() %></td>
+						<td><%= booking.endDate.toLocaleDateString() %></td>
+					</tr>
+					<% }) %> <% } %>
+				</tbody>
+			</table>
+		</div>
+		<div class="catway-form">
+			<h4 class="add-title">Réserver</h4>
+			<p>
+				Veuillez remplir ce formulaire pour effectuer une réservation pour le
+				catway #<%= catway.catwayNumber %>.
+			</p>
+			<form
+				action="/catways/<%= catway.id %>/reservations"
+				method="post"
+				class="add-form"
+			>
+				<div class="form-group">
+					<label for="boatName" class="label">Bateau</label>
+					<input
+						type="text"
+						name="boatName"
+						id="boatName"
+						placeholder="Santa Maria"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="startDate" class="label">Date de début</label>
+					<input type="date" name="startDate" id="startDate" required />
+				</div>
+				<div class="form-group">
+					<label for="endDate" class="label">Date de début</label>
+					<input type="date" name="endDate" id="endDate" required />
+				</div>
+				<button type="submit" class="blue-button">Enregistrer</button>
+
+				<% if (success === 'added') { %>
+				<div class="alert-info">
+					<em>Réservation effectuée !</em>
+				</div>
+				<% } %>
+			</form>
+		</div>
+	</div>
+    <button type="button" class="back-button"><a href="/catways/<%= catway.id %>" class="link"> ← Retour</a></button>
+</div>

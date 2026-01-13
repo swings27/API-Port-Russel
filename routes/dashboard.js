@@ -16,7 +16,7 @@ router.get('/', private.checkJWT, async (req, res) => {
         const now = new Date();
 
         //Récupérer les réservations
-        const reservations = await Reservation.find();
+        const reservations = await Reservation.find().sort({ catwayNumber: 1 });
 
         // Filtrer seulement les réservations en cours
         const currentReservations = reservations
@@ -26,7 +26,8 @@ router.get('/', private.checkJWT, async (req, res) => {
         res.render('pages/dashboard', {
             user,
             date: now.toLocaleDateString('fr-FR'),
-            reservations: currentReservations
+            reservations: currentReservations,
+            content: 'listing'
         });
     } catch (error) {
         console.error('Erreur dashboard:', error);
