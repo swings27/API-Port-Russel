@@ -16,7 +16,7 @@ router.get('/', private.checkJWT, async (req, res) => {
         const now = new Date();
 
         //Récupérer les réservations
-        const reservations = await Reservation.find();
+        const reservations = await Reservation.find().sort({ catwayNumber: 1 });
 
         // Filtrer seulement les réservations en cours
         const currentReservations = reservations

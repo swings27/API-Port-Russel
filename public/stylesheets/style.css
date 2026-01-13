@@ -5,13 +5,22 @@
 
 html, body {
   height: 100%;
+  margin: 0;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   text-align: center;
   background-color: #d1f0ff;
   font: 1em "Neuton", Georgia, serif;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  flex: 1;
 }
 
 .home {
@@ -88,7 +97,7 @@ h5 {
 
 .form-group {
   width: auto;
-  padding: 20px;
+  padding: 5px;
 }
 
 .welcome-text {
@@ -162,12 +171,8 @@ a {
 }
 
 footer {
-  box-sizing: border-box;
   width: 100%;
-  position: absolute;
-  bottom: 0;
   display: flex;
-  flex-flow: row nowrap;
   justify-content: space-between;
   background-color: rgb(5, 10, 89);
   color: white;

@@ -22,7 +22,7 @@ exports.getAllCatways = async (req, res, next) => {
 //Récupérer un catway spécifique
 exports.getById = async (req, res, next) => {
 	const { id } = req.params;
-     const success = req.query.success;
+    const success = req.query.success;
 
 	if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json("ID Mongo invalide");
@@ -34,7 +34,7 @@ exports.getById = async (req, res, next) => {
 		if (catway) {
 			return res.render('pages/dashboard', {
                 catway,
-                content: 'catway-manager',
+                content: 'catway-detail',
                 success
             });
 		}

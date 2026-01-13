@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const service = require('../services/reservations');
+const private = require('../middlewares/private');
+const data = require('../middlewares/data');
 
 /**
  * @swagger
@@ -11,7 +13,7 @@ const service = require('../services/reservations');
  *      tags:
  *          - Reservations
  */
-router.get('/:id/reservations', service.getAll);
+router.get('/:id/reservations', private.checkJWT, data.loadUserAndDate, service.getAll);
 
 /**
  * @swagger
@@ -21,7 +23,7 @@ router.get('/:id/reservations', service.getAll);
  *     tags:
  *       - Reservations
  */
-router.get('/:id/reservations/:idReservation', service.getOne);
+router.get('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, service.getOne);
 
 /**
  * @swagger
@@ -31,7 +33,7 @@ router.get('/:id/reservations/:idReservation', service.getOne);
  *     tags:
  *       - Reservations
  */
-router.post('/:id/reservations', service.createBooking);
+router.post('/:id/reservations', private.checkJWT, data.loadUserAndDate, service.createBooking);
 
 /**
  * @swagger
@@ -41,7 +43,7 @@ router.post('/:id/reservations', service.createBooking);
  *     tags:
  *       - Reservations
  */
-router.put('/:id/reservations/:idReservation', service.updateBooking);
+router.put('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, service.updateBooking);
 
 /**
  * @swagger
@@ -51,6 +53,6 @@ router.put('/:id/reservations/:idReservation', service.updateBooking);
  *     tags:
  *       - Reservations
  */
-router.delete('/:id/reservations/:idReservation', service.deleteBooking);
+router.delete('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, service.deleteBooking);
 
 module.exports = router;

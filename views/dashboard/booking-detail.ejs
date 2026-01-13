@@ -1,0 +1,72 @@
+<div class="summary">
+	<h3 class="chart-title">Réservation #<%= booking.id %></h3>
+	<div class="page-container">
+		<div class="manager-infos">
+			<h4 class="title">Informations</h4>
+			<div class="description">
+				<p><strong>Catway :</strong> <%= booking.catwayNumber %></p>
+				<p><strong>Client :</strong> <%= booking.clientName %></p>
+				<p><strong>Bateau :</strong> <%= booking.boatName %></p>
+				<p><strong>Date de début :</strong> <%= booking.startDate %></p>
+				<p><strong>Date de fin :</strong> <%= booking.endDate %></p>
+			</div>
+		</div>
+		<div class="catway-form">
+			<h5 class="add-title">Modifier la réservation</h5>
+			<p class="text-info">
+				Vous pouvez modifier votre réservation ou la supprimer. Pour changer de catway, supprimer votre réservation actuelle avant
+				d'effectuer votre nouvelle réservation.
+			</p>
+			<% if (canEdit) { %>
+			<form
+				action="/catways/<%= catway._id %>/reservations/<%= booking._id %>?_method=PUT"
+				method="post"
+				class="add-form"
+			>
+				<div class="form-group">
+					<label for="boatName" class="label">Bateau</label>
+					<input
+						type="text"
+						name="boatName"
+						id="boatName"
+						value="<%= booking.boatName %>"
+						required
+					/>
+				</div>
+				<div class="form-group">
+					<label for="startDate" class="label">Date de début</label>
+					<input type="date" name="startDate" id="startDate" required />
+				</div>
+				<div class="form-group">
+					<label for="endDate" class="label">Date de début</label>
+					<input type="date" name="endDate" id="endDate" required />
+				</div>
+				<button type="submit" class="small-button">Enregistrer</button>
+				<% if (success === 'updated') { %>
+				<div>
+					<em>Réservation modifiée avec succès !</em>
+				</div>
+				<% } %>
+			</form>
+
+			<!-- Bouton de suppression -->
+			<h5 class="add-title">Supprimer la réservation</h5>
+			<form
+				action="/catways/<%= catway.id %>/reservations/<%= booking.id %>?_method=DELETE"
+				method="post"
+				onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre réservation ?');"
+			>
+				<input type="hidden" name="_method" value="DELETE" />
+				<button type="submit" class="blue-button">Supprimer</button>
+			</form>
+			<% } else { %>
+			<div class="alert-info">
+				<em>Vous ne pouvez pas effectuer d'actions sur cette réservation.</em>
+			</div>
+			<% } %>
+		</div>
+	</div>
+	<button type="button" class="back-button">
+		<a href="/catways/<%= catway.id %>/reservations" class="link"> ← Retour</a>
+	</button>
+</div>
