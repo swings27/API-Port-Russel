@@ -1,9 +1,9 @@
 #profile-page {
-    width: 40%;
+    width: min(40%, 600px);
     margin: 40px auto;
 }
 
-.container {
+#profile-page .container {
     padding: 30px;
     font-size: 1.2em;
 }
@@ -15,10 +15,11 @@
 #picture {
     width: 120px;
     height: 120px;
+    object-fit: cover;
 }
 
 #profile-form {
-    width: 30%;
+    width: min(30%, 400px);
     margin: 0 auto;
 }
 

@@ -6,7 +6,7 @@
 
 			<% if (typeof message !== 'undefined') { %>
 			<script>
-				alert("<%= message %>");
+				alert("<%= JSON.stringify(message) %>");
 			</script>
 			<% } %>
 

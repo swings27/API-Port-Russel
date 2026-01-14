@@ -11,17 +11,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% if (reservations.length === 0) { %>
+			<% if (bookings.length === 0) { %>
 			<tr>
 				<td colspan="5">Aucune réservation en cours</td>
 			</tr>
-			<% } else { %> <% reservations.forEach(reservation => { %>
-			<tr>
-				<td><%= reservation.catwayNumber %></td>
-				<td><%= reservation.clientName %></td>
-				<td><%= reservation.boatName %></td>
-				<td><%= reservation.startDate.toLocaleDateString() %></td>
-				<td><%= reservation.endDate.toLocaleDateString() %></td>
+			<% } else { %> <% bookings.forEach(booking => { %>
+			<tr onclick="window.location.href='/catways/<%= encodeURIComponent(booking.catwayId) %>/reservations/<%= encodeURIComponent(booking._id) %>'">
+				<td><%= booking.catwayNumber %></td>
+				<td><%= booking.clientName %></td>
+				<td><%= booking.boatName %></td>
+				<td><%= booking.startDate.toLocaleDateString() %></td>
+				<td><%= booking.endDate.toLocaleDateString() %></td>
 			</tr>
 			<% }) %> <% } %>
 		</tbody>

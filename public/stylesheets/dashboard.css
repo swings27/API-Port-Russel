@@ -5,8 +5,8 @@
 }
 
 .navigation {
-    width: 15%;
     display: flex;
+    flex: 0 0 15%;
     flex-direction: column;
     justify-content: space-between;
     background-color: rgb(5, 10, 89);
@@ -17,7 +17,6 @@
     color: white;
     text-transform: uppercase;
     word-spacing: 5px;
-    font-family: "Libre Bodoni", Georgia, serif;
     padding: 30px 5px;
 }
 
@@ -43,7 +42,7 @@ nav ul li {
 }
 
 nav ul li:hover {
-    font-weight: bold;
+    font-weight: 600;
     background-color: #d1f0ff;
     color: rgb(5, 10, 89);
     cursor: pointer;
@@ -59,10 +58,13 @@ nav ul li:hover {
 }
 
 .overview {
-    width: 85%;
     display: flex;
     flex-direction: column;
     flex: 1;
+}
+
+.navigation, .overview {
+    min-height: 0;
 }
 
 .data {

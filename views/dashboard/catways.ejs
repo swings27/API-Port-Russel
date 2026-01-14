@@ -12,7 +12,7 @@
 				</thead>
 				<tbody>
 					<% catways.forEach(catway => { %>
-					<tr onclick="window.location.href='/catways/<%= catway.id %>'">
+					<tr onclick="window.location.href='/catways/<%= encodeURIComponent(catway.id) %>'">
 						<td><%= catway.catwayNumber %></td>
 						<td><%= catway.catwayType %></td>
 						<td><%= catway.catwayState %></td>
@@ -38,12 +38,12 @@
 				<div class="form-group">
 					<fieldset class="radio-group">
 						<legend class="label">Type :</legend>
-						<label for="catwayType">
-							<input type="radio" name="catwayType" value="short" required/>
+						<label for="catwayTypeShort">
+							<input type="radio" name="catwayType" id="catwayTypeShort" value="short" required/>
 							Short
 						</label>
-						<label for="catwayType">
-							<input type="radio" name="catwayType" value="long" required/>
+						<label for="catwayTypeLong">
+							<input type="radio" name="catwayType" id="catwayTypeLong" value="long" required/>
 							Long
 						</label>
 					</fieldset>
@@ -54,7 +54,7 @@
 						type="text"
 						name="catwayState"
 						id="catwayState"
-						placeholder="Excellent/bon/ moyen état, commentaire"
+						placeholder="Etat/ commentaire"
 						required
 					/>
 				</div>
