@@ -34,6 +34,8 @@ const ReservationSchema = new Schema({
             message: 'La date de fin doit être postérieure à la date de début'
         }
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Reservation', ReservationSchema);
