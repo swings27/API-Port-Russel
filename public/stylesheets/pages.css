@@ -1,8 +1,8 @@
 .page-container {
     display: flex;
-    flex-direction: column nowrap;
+    flex-direction: row nowrap;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .title {
@@ -18,7 +18,7 @@
 .catway-form {
     width: 30%;
     background-color: #d1f0ff;
-    padding: 15px 25px 15px 10px;
+    padding: 15px 20px;
     border-radius: 25px;
 }
 
@@ -50,7 +50,7 @@
 
 .radio-group {
     display: flex;
-    align-items: left;
+    align-items: flex-start;
     gap: 20px;
     border: none;
     padding: 0;

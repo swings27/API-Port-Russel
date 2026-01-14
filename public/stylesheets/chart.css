@@ -1,7 +1,7 @@
 .chart-title {
     background-color: rgb(5, 10, 89);
     text-transform: uppercase;
-    width: 40%;
+    width: min(40%, 400px);
     margin: 50px auto;
     padding: 15px 0;
     border-radius: 50px;
@@ -13,7 +13,7 @@
 }
 
 table {
-  width: 80%;
+  width: min(80%, 1000px);
   border-collapse: collapse;
   margin: 0 auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -36,12 +36,17 @@ thead th:last-child {
 
 th, td {
   padding: 12px 15px;
+  white-space: nowrap;
 }
 
 th {
   background-color: rgb(5, 10, 89);
   color: #fff;
   text-transform: uppercase;
+}
+
+td {
+  vertical-align: middle;
 }
 
 tbody tr:nth-child(even) {
