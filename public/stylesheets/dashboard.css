@@ -68,8 +68,19 @@ nav ul li:hover {
 }
 
 .data {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 150px;
     padding: 15px;
     text-align: left;
+}
+
+.data-infos {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }
 
 .main-content {

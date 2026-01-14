@@ -5,6 +5,7 @@ const Catway = require("../models/catways");
 
 const private = require("../middlewares/private");
 const data = require("../middlewares/data");
+const meteo = require("../middlewares/meteo");
 
 /**
  * @swagger
@@ -36,7 +37,7 @@ const data = require("../middlewares/data");
  *       500:
  *         description: Erreur serveur
  */
-router.get("/", private.checkJWT, data.loadUserAndDate, async (req, res) => {
+router.get("/", private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, async (req, res) => {
 	try {
 		const now = new Date();
 
@@ -63,6 +64,8 @@ router.get("/", private.checkJWT, data.loadUserAndDate, async (req, res) => {
 		res.render("pages/dashboard", {
 			bookings: currentBookings,
 			content: "listing",
+			weather: req.weather || null,
+            currentTide: req.currentTide || null
 		});
 	} catch (error) {
 		console.error("Erreur dashboard:", error);

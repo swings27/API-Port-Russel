@@ -4,6 +4,7 @@ const router = express.Router();
 const service = require('../services/reservations');
 const private = require('../middlewares/private');
 const data = require('../middlewares/data');
+const meteo = require('../middlewares/meteo');
 
 /**
  * @swagger
@@ -36,7 +37,7 @@ const data = require('../middlewares/data');
  *       500:
  *         description: Erreur serveur
  */
-router.get('/:id/reservations', private.checkJWT, data.loadUserAndDate, service.getAll);
+router.get('/:id/reservations', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.getAll);
 
 /**
  * @swagger
@@ -67,7 +68,7 @@ router.get('/:id/reservations', private.checkJWT, data.loadUserAndDate, service.
  *       500:
  *         description: Erreur serveur
  */
-router.get('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, service.getOne);
+router.get('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.getOne);
 
 /**
  * @swagger
@@ -98,7 +99,7 @@ router.get('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAn
  *       500:
  *         description: Erreur serveur
  */
-router.post('/:id/reservations', private.checkJWT, data.loadUserAndDate, service.createBooking);
+router.post('/:id/reservations', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.createBooking);
 
 /**
  * @swagger
@@ -133,7 +134,7 @@ router.post('/:id/reservations', private.checkJWT, data.loadUserAndDate, service
  *       500:
  *         description: Erreur serveur
  */
-router.put('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, service.updateBooking);
+router.put('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.updateBooking);
 
 /**
  * @swagger
@@ -162,6 +163,6 @@ router.put('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAn
  *       500:
  *         description: Erreur serveur
  */
-router.delete('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, service.deleteBooking);
+router.delete('/:id/reservations/:idReservation', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.deleteBooking);
 
 module.exports = router;

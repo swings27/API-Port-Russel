@@ -34,11 +34,37 @@
 							</li>
 						</ul>
 					</nav>
-					<a href="/users/logout" class="link"><button type="button" class="blue-button">Déconnexion</button></a>
+					<a href="/users/logout" class="link"
+						><button type="button" class="blue-button">Déconnexion</button></a
+					>
 				</div>
 				<div class="overview">
 					<div class="data">
 						<p>Aujourd'hui, nous sommes le : <%= date %></p>
+						<div class="data-infos">
+						<h5>Météo =</h5>
+						<% if (weather) { %>
+							<p><em>Température :</em> <%= weather.temperature %> °C</p>
+							<p>-</p>
+							<p><em>Description :</em> <%= weather.description %></p>
+							<% } else { %>
+								<p>Météo indisponible</p>
+								<% } %>
+						</div>
+						<div class="data-infos">
+							<h5>Marée actuelle =</h5>
+						<% if (currentTide) { %>
+							<p>
+								<em>Heure :</em> <%= new Date(currentTide.dt * 1000).toLocaleTimeString() %>
+							</p>
+							<p>-</p>
+							<p>
+    							<em>Hauteur :</em> <%= currentTide.height.toFixed(2) %> m
+  							</p>
+							<% } else { %>
+  								<p>Aucune marée disponible pour l'heure actuelle.</p>
+							<% } %>
+						</div>
 					</div>
 					<div class="main-content">
 						<%- include(`../dashboard/${content}`) %>

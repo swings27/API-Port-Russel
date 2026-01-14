@@ -4,6 +4,7 @@ const router = express.Router();
 const service = require('../services/users');
 const private = require('../middlewares/private');
 const data = require('../middlewares/data');
+const meteo = require('../middlewares/meteo');
 
 /**
  * @swagger
@@ -68,7 +69,7 @@ router.get('/logout', service.logout);
  *       200:
  *         description: Liste des utilisateurs
  */
-router.get('/', private.checkJWT, data.loadUserAndDate, service.getAllUsers);
+router.get('/', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.getAllUsers);
 
 /**
  * @swagger
@@ -88,7 +89,7 @@ router.get('/', private.checkJWT, data.loadUserAndDate, service.getAllUsers);
  *       404:
  *         description: Utilisateur non trouvé
  */
-router.get('/:email', private.checkJWT, data.loadUserAndDate, service.getUser);
+router.get('/:email', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.getUser);
 
 /**
  * @swagger
@@ -151,7 +152,7 @@ router.post('/', service.createUser);
  *       404:
  *         description: Utilisateur non trouvé
  */
-router.put('/:email', private.checkJWT, data.loadUserAndDate, service.updateUser);
+router.put('/:email', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.updateUser);
 
 
 /**
@@ -172,7 +173,7 @@ router.put('/:email', private.checkJWT, data.loadUserAndDate, service.updateUser
  *       404:
  *         description: Utilisateur non trouvé
  */
-router.delete('/:email', private.checkJWT, data.loadUserAndDate, service.deleteUser);
+router.delete('/:email', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.deleteUser);
 
 
 module.exports = router;
