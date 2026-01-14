@@ -19,13 +19,13 @@
 					</tr>
 					<% } else { %> <% bookings.forEach(booking => { %>
 					<tr
-						onclick="window.location.href='/catways/<%= encodeURIComponent(catway.id) %>/reservations/<%= encodeURIComponent(booking.id) %>'"
+						onclick="window.location.href='/catways/<%= encodeURIComponent(catway._id) %>/reservations/<%= encodeURIComponent(booking._id) %>'"
 					>
 						<td><%= booking.catwayNumber %></td>
 						<td><%= booking.clientName %></td>
 						<td><%= booking.boatName %></td>
-						<td><%= booking.startDate.toLocaleDateString() %></td>
-						<td><%= booking.endDate.toLocaleDateString() %></td>
+						<td><%= booking.startDate ? booking.startDate.toLocaleDateString() : '-' %></td>
+						<td><%= booking.endDate ? booking.endDate.toLocaleDateString() : '-' %></td>
 					</tr>
 					<% }) %> <% } %>
 				</tbody>
