@@ -12,7 +12,7 @@ exports.getAllCatways = async (req, res, next) => {
 		res.render("pages/dashboard", {
 			catways,
 			content: "catways",
-			success: req.query.success || null,
+			success: req.query.success || null
 		});
 	} catch (error) {
 		console.error("Erreur récupération des catways :", error);
@@ -39,7 +39,7 @@ exports.getById = async (req, res, next) => {
 			return res.render("pages/dashboard", {
 				catway,
 				content: "catway-detail",
-				success,
+				success
 			});
 		}
 
@@ -63,7 +63,7 @@ exports.createCatway = async (req, res, next) => {
 			catways,
 			content: "catways",
 			message: "Tous les champs sont obligatoires",
-			success: null,
+			success: null
 		});
 	}
 
@@ -73,7 +73,7 @@ exports.createCatway = async (req, res, next) => {
 			catways,
 			content: "catways",
 			message: "Numéro de catway invalide",
-			success: null,
+			success: null
 		});
 	}
 
@@ -87,7 +87,7 @@ exports.createCatway = async (req, res, next) => {
 				catways,
 				content: "catways",
 				message: `Le catway numéro ${catwayNumberParsed} est déjà utilisé`,
-				success: null,
+				success: null
 			});
 		}
 

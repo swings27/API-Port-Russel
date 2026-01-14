@@ -4,6 +4,7 @@ const router = express.Router();
 const service = require('../services/catways');
 const private = require('../middlewares/private');
 const data = require('../middlewares/data');
+const meteo = require("../middlewares/meteo");
 
 /**
  * @swagger
@@ -27,7 +28,7 @@ const data = require('../middlewares/data');
  *       500:
  *         description: Erreur serveur
  */
-router.get('/', private.checkJWT, data.loadUserAndDate, service.getAllCatways);
+router.get('/', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.getAllCatways);
 
 /**
  * @swagger
@@ -54,7 +55,7 @@ router.get('/', private.checkJWT, data.loadUserAndDate, service.getAllCatways);
  *       500:
  *         description: Erreur serveur
  */
-router.get('/:id', private.checkJWT, data.loadUserAndDate, service.getById);
+router.get('/:id', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.getById);
 
 /**
  * @swagger
@@ -80,7 +81,7 @@ router.get('/:id', private.checkJWT, data.loadUserAndDate, service.getById);
  *       500:
  *         description: Erreur serveur
  */
-router.post('/', private.checkJWT, data.loadUserAndDate, service.createCatway);
+router.post('/', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.createCatway);
 
 /**
  * @swagger
@@ -118,7 +119,7 @@ router.post('/', private.checkJWT, data.loadUserAndDate, service.createCatway);
  *       500:
  *         description: Erreur serveur
  */
-router.put('/:id', private.checkJWT, data.loadUserAndDate, service.updateCatway);
+router.put('/:id', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.updateCatway);
 
 /**
  * @swagger
@@ -145,6 +146,6 @@ router.put('/:id', private.checkJWT, data.loadUserAndDate, service.updateCatway)
  *       500:
  *         description: Erreur serveur
  */
-router.delete('/:id', private.checkJWT, data.loadUserAndDate, service.deleteCatway);
+router.delete('/:id', private.checkJWT, data.loadUserAndDate, meteo.loadWeatherAndTides, service.deleteCatway);
 
 module.exports = router;
