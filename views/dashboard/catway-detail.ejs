@@ -9,7 +9,7 @@
 				<p><strong>Etat du catway :</strong> <%= catway.catwayState %></p>
 			</div>
             <img id="photo" src="/images/catway.jpg"/>
-            <button type="button" class="blue-button"><a href="/catways/<%= catway.id %>/reservations" class="link">Voir les réservations</a></button>
+            <button type="button" class="blue-button"><a href="/catways/<%= encodeURIComponent(catway.id) %>/reservations" class="link">Voir les réservations</a></button>
 		</div>
 		<div class="catway-form">
 			<h5 class="add-title">Modifier le catway</h5>
@@ -25,7 +25,7 @@
 						type="text"
 						name="catwayState"
 						id="catwayState"
-						placeholder="Excellent/bon/ moyen état, commentaire"
+						placeholder="Etat/commentaire"
 						required
 					/>
 				</div>
@@ -40,7 +40,7 @@
 			<!-- Bouton de suppression -->
             <h5 class="add-title">Supprimer le catway</h5>
 			<form
-				action="/catways/<%= catway.id %>?_method=DELETE"
+				action="/catways/<%= encodeURIComponent(catway.id) %>?_method=DELETE"
 				method="post"
 				onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?');"
 			>

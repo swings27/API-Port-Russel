@@ -15,22 +15,23 @@
 	<% if (user.email === profileUser.email) { %>
 	<!-- Formulaire de modification -->
 	<form
-		action="/users/<%= profileUser.email %>?_method=PUT"
+		action="/users/<%= encodeURIComponent(profileUser.email) %>?_method=PUT"
 		method="post"
 		id="profile-form"
 	>
 		<input type="hidden" name="_method" value="PUT" />
 
-		<label class="label">Email</label>
+		<label for="email" class="label">Email</label>
 		<input
 			type="email"
 			name="email"
+			id="email"
 			value="<%= profileUser.email %>"
 			required
 		/>
 
-		<label class="label">Mot de passe</label>
-		<input type="password" name="password" placeholder="Nouveau mot de passe" />
+		<label for="password" class="label">Mot de passe</label>
+		<input type="password" name="password" id="password" placeholder="Nouveau mot de passe" autocomplete="new-password" />
 
 		<button type="submit" class="small-button">Modifier</button>
 	</form>
@@ -42,7 +43,7 @@
     <% } %>
 
     <!-- Bouton de suppression -->
-    <form action="/users/<%= profileUser.email %>?_method=DELETE" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
+    <form action="/users/<%= encodeURIComponent(profileUser.email) %>?_method=DELETE" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
         <input type="hidden" name="_method" value="DELETE">
         <button type="submit" class="blue-button">Supprimer le compte</button>
     </form>

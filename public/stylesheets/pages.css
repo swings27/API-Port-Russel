@@ -90,10 +90,9 @@
 }
 
 .alert-info {
-    margin: 30px 0 15px;
-    padding: 10px;
-    border: 2px solid rgb(5, 10, 89);
-    border-radius: 25px;
+    margin: 10px auto;
+    width: auto;
+    font-style: italic;
 }
 
 .text-info {

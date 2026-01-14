@@ -12,13 +12,13 @@
 						<img
 							class="profile-pic"
 							src="/images/utilisateur.png"
-							alt="Photo de profil"
+							alt="Photo de profil de <%= user.firstname %>"
 						/>
 						<h3>Bienvenue <%= user.firstname %> <%= user.name %></h3>
 						<p>Adresse mail : <%= user.email %></p>
-						<button type="button" class="small-button">
-							<a href="/users/<%= user.email %>" class="link">Profil</a>
-						</button>
+						<a href="/users/<%= encodeURIComponent(user.email) %>" class="link"
+							><button type="button" class="small-button">Profil</button></a
+						>
 					</div>
 					<nav>
 						<ul>
@@ -34,9 +34,7 @@
 							</li>
 						</ul>
 					</nav>
-					<button type="button" class="blue-button">
-						<a href="/users/logout" class="link">Déconnexion</a>
-					</button>
+					<a href="/users/logout" class="link"><button type="button" class="blue-button">Déconnexion</button></a>
 				</div>
 				<div class="overview">
 					<div class="data">

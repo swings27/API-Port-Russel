@@ -2,16 +2,12 @@
 <html lang="fr">
 	<%- include('../partials/head') %>
 	<body>
-		<% if (success === 'registered') { %>
-		<div class="alert-info">Inscription validée ! Vous pouvez maintenant vous connecter.</div>
-		<% } %>
-
 		<main class="home">
 			<h1><%= title %></h1>
 			<img
 				class="logo"
 				src="/images/quai.png"
-				alt="logo de la Capitainerie du Port Russel"
+				alt="Logo de la capitainerie du Port Russel"
 			/>
 			<div class="container-home">
 				<div class="welcome-box">
@@ -47,7 +43,12 @@
 						</section>
 					</div>
 				</div>
-				<form action="/users/login" method="POST" class="login-form">
+				<form
+					aria-label="Formulaire de connexion"
+					action="/users/login"
+					method="POST"
+					class="login-form"
+				>
 					<div class="form-group">
 						<label for="email" class="label">Email</label>
 						<input
@@ -69,7 +70,15 @@
 						/>
 					</div>
 					<button type="submit" class="blue-button">Connexion</button>
-					<p><a href="/inscription">S'inscrire ?</a></p>
+					<button type="button" class="small-button">
+						<a href="/inscription">S'inscrire ?</a>
+					</button>
+
+					<% if (success && success === 'registered') { %>
+					<div class="alert-info">
+						Inscription validée ! Vous pouvez maintenant vous connecter.
+					</div>
+					<% } %>
 				</form>
 			</div>
 		</main>
