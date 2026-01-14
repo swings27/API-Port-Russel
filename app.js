@@ -83,15 +83,7 @@ app.use(function(err, req, res, next) {
 
 
 //Connection à la base de données et lancement du serveur
-connectDB()
-  .then(() => {
-    const Port = process.env.PORT || 3000;
-    app.listen(Port , () => {
-      console.log("Listening on port " + Port);
-      console.log(`Swagger available on http://localhost:${Port}/api-docs`);
-      });
-  })
-  .catch(err => {
+connectDB().catch(err => {
     console.error("Failed to connect to MongoDB:", err);
   });
 
